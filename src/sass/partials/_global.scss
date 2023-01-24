@@ -1,0 +1,23 @@
+/* universal global rules */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  // background: ;
+  // font-family: ;
+  // font-weight: ;
+  // color: ;
+}
+
+.container {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
