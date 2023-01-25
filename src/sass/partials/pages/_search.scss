@@ -1,1 +1,10 @@
 /* search page styles */
+#pages {
+  > * {
+    display: none;
+  }
+
+  > .active {
+    display: block;
+  }
+}

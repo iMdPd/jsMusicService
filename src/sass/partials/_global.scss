@@ -9,11 +9,11 @@
 body {
   margin: 0;
   font-size: 14px;
-  line-height: 1.7;
-  // background: ;
-  // font-family: ;
-  // font-weight: ;
-  // color: ;
+  line-height: 1.4;
+  text-align: center;
+  background: $color-bg;
+  font-family: $font-text;
+  color: $color-light;
 }
 
 .container {

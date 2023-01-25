@@ -1,1 +1,41 @@
 /* header styles */
+.header {
+  background-image: url('/images/background.jpg');
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &::before {
+    content: '';
+
+    background-image: linear-gradient(rgba(255, 0, 0, 0), $color-bg);
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 1;
+  }
+}
+
+.logo {
+  color: $color-logo;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  .logo__subtitle {
+    line-height: 2em;
+    margin: 0;
+    letter-spacing: 0.3em;
+    margin-right: 10px;
+    font-weight: $font-black;
+  }
+}
