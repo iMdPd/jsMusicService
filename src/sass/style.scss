@@ -4,11 +4,12 @@
 @import 'partials/layout';
 @import 'partials/typography';
 
+@import 'partials/nav';
 @import 'partials/header';
 
 @import 'partials/pages/home';
 @import 'partials/pages/search';
 @import 'partials/pages/discover';
 
-@import 'partials/bootstrap';
+@import 'bootstrap/bootstrap.scss';
 @import 'partials/normalize';

@@ -27,8 +27,6 @@
   color: $color-logo;
   position: absolute;
   width: 100%;
-  top: 50%;
-  left: 50%;
   transform: translate(-50%, -50%);
 
   .logo__subtitle {
@@ -36,6 +34,5 @@
     margin: 0;
     letter-spacing: 0.3em;
     margin-right: 10px;
-    font-weight: $font-black;
   }
 }

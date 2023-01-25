@@ -14,10 +14,12 @@ body {
   background: $color-bg;
   font-family: $font-text;
   color: $color-light;
+  /* JS MUST TRANSFORM TEXT TO UPPERCASE */
+  text-transform: uppercase;
 }
 
 .container {
   max-width: 700px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 0 20px;
 }

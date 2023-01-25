@@ -1,1 +1,21 @@
 /* universal page layout rules */
+.btn {
+  display: inline-block;
+  min-width: 160px;
+  margin: 24px auto 0 auto;
+  padding: 16px;
+  border-radius: 5px;
+  font-size: 24px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: $font-bold;
+  font-family: $font-text;
+  background-color: $color-btn;
+  letter-spacing: 0.17em;
+}
+
+.btn-one {
+  border-color: $color-btn;
+  color: $color-logo;
+}

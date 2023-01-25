@@ -1,0 +1,19 @@
+/* nav styles */
+.main-nav {
+  display: flex;
+  justify-content: space-evenly;
+  a {
+    text-decoration: none;
+    color: $color-light;
+    font-weight: $font-semibold;
+    font-size: 1.5em;
+
+    &.active {
+      color: $color-logo;
+    }
+
+    &:hover {
+      color: $color-logo;
+    }
+  }
+}

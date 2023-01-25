@@ -1,1 +1,28 @@
 /* universal classes for headings, titles ... */
+h1 {
+  font-size: 9.5em;
+  letter-spacing: 0.17em;
+  margin: 0;
+  font-weight: $font-bold;
+}
+
+h2 {
+  font-size: 4.5em;
+  letter-spacing: 0.2em;
+  margin: 0;
+  font-weight: $font-semibold;
+}
+
+h3 {
+  font-size: 2em;
+  letter-spacing: 0.17em;
+  margin: 0;
+  font-weight: $font-black;
+}
+
+h4 {
+  font-size: 1.5em;
+  letter-spacing: 0.17em;
+  margin: 0;
+  font-weight: $font-black;
+}

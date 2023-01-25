@@ -18,45 +18,75 @@
   <body>
     <!-- _______________________________________________________ PAGE HEADER _______________________________________________________ -->
     <header class="header">
-      <div class="container">
-        <div class="header__wrapper">
-          <div class="logo">
-            <h1 class="logo__title">T A S T E</h1>
-            <h2 class="logo__subtitle">ENGAGE<br /> IN<br />ART</h2>
-          </div>
+      <div class="header__wrapper">
+        <div class="logo">
+          <h1 class="logo__title">t a s t e</h1>
+          <h4 class="logo__subtitle">engage<br />in<br />art</h4>
         </div>
       </div>
     </header>
     <!-- _______________________________________________________ NAV SECTION _______________________________________________________ -->
     <section class="nav">
-      <div class="main-nav">
-        <a href="#home">home</a>
+      <div class="main-nav container">
+        <a href="#home" class="active">home</a>
         <a href="#search">search</a>
         <a href="#discover">discover</a>
       </div>
     </section>
     <!-- ______________________________________________________ PAGES SECTION ______________________________________________________ -->
     <div id="pages">
-      <section id="home">
-        <div class="home-wrapper container"></div>
+      <section id="home" class="active">
+        <div class="home-wrapper">
+          <!-- ________________________________________________ SUBSCRIBE SECTION ________________________________________________ -->
+          <div class="subscribe__wrapper">
+            <h2 class="subscribe__title">subscribe <span>now</span></h2>
+
+            <div class="album-wrapper">
+              <div class="button-box">
+                <a href="#" class="btn btn-one">JOIN NOW</a>
+              </div>
+              <div class="author-box">
+                <div class="author-album">
+                  <div class="author-name">
+                    <p class="firstname">Dean</p>
+                    <br />
+                    <p class="lastname">&nbsp;&nbsp;Hen<span>son</span></p>
+                  </div>
+                  <img
+                    class="artist-picture"
+                    src="/images/artist.jpg"
+                    alt="artist"
+                  />
+                </div>
+              </div>
+              <div class="description-box">
+                <h3>new album</h3>
+                <p class="album-information">available only for subscribers</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
+
       <section id="search">
         <div class="search-wrapper container"></div>
       </section>
       <section id="discover">
         <div class="discover-wrapper container"></div>
       </section>
-      <section id="subscribe">
-        <div class="subscribe-wrapper"></div>
-      </section>
     </div>
 
     <!-- _______________________________________________________ PAGE FOOTER _______________________________________________________ -->
 
-    <footer class="page-footer">all rights reserved</footer>
+    <footer class="page-footer container">all rights reserved</footer>
 
     <!-- _____________________________________________________ SCRIPT SECTION _____________________________________________________ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
     <script src="js/app.js" type="module"></script>
   </body>
 </html>
