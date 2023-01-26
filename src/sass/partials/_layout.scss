@@ -12,7 +12,7 @@
   font-weight: $font-bold;
   font-family: $font-text;
   background-color: $color-btn;
-  letter-spacing: 0.17em;
+  letter-spacing: $letter-spacing;
 
   &:hover {
     -webkit-filter: brightness(50%);
