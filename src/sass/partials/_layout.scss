@@ -13,6 +13,11 @@
   font-family: $font-text;
   background-color: $color-btn;
   letter-spacing: 0.17em;
+
+  &:hover {
+    -webkit-filter: brightness(50%);
+    transition: all 1s ease;
+  }
 }
 
 .btn-one {

@@ -12,7 +12,6 @@
 
   &::before {
     content: '';
-
     background-image: linear-gradient(rgba(255, 0, 0, 0), $color-bg);
     position: absolute;
     top: 0px;
@@ -22,17 +21,21 @@
     opacity: 1;
   }
 }
-
-.logo {
-  color: $color-logo;
-  position: absolute;
+.header__wrapper {
   width: 100%;
-  transform: translate(-50%, -50%);
+  position: relative;
+  .logo {
+    color: $color-logo;
+    position: absolute;
+    width: 100%;
+    top: 10px;
+    transform: translate(0%, -50%);
 
-  .logo__subtitle {
-    line-height: 2em;
-    margin: 0;
-    letter-spacing: 0.3em;
-    margin-right: 10px;
+    .logo__subtitle {
+      line-height: 2em;
+      margin: 0;
+      letter-spacing: 0.3em;
+      margin-right: 10px;
+    }
   }
 }

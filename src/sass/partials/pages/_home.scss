@@ -19,7 +19,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 600px;
+  // max-height: 600px;
   height: 100vh;
   width: 100%;
 
@@ -27,8 +27,7 @@
     color: $color-logo;
     position: absolute;
     width: 100%;
-    top: -35px;
-    transform: translate(0%, -10%);
+    transform: translate(0%, -50vh);
 
     span {
       font-weight: $font-black;
@@ -37,25 +36,17 @@
 }
 
 .album-wrapper {
-  flex-wrap: wrap;
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  width: 1000px;
+  width: 80%;
   padding: 0 50px;
-  .button-box {
-    flex: 0 0 30%;
-  }
 
   .author-box {
-    flex: 0 0 30%;
     position: relative;
     flex-wrap: nowrap;
     align-items: flex-end;
   }
 
   .description-box {
-    flex: 0 0 100%;
     text-align: end;
     padding: 30px 0;
 
@@ -63,7 +54,7 @@
       margin: 0;
       color: $color-logo;
       text-transform: capitalize;
-      font-size: 2em;
+      font-size: 2vw;
       letter-spacing: 0.17em;
     }
   }
@@ -71,6 +62,7 @@
 
 .author-album {
   padding: 0 20px;
+
   .artist-picture {
     width: 300px;
     border-radius: $border-radius;
@@ -82,9 +74,9 @@
   color: $color-logo;
   text-align: left;
   line-height: 1;
-  left: -52%;
-  bottom: 15%;
   position: absolute;
+  right: 165px;
+  bottom: 40px;
 
   .firstname,
   .lastname {
