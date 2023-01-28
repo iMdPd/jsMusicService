@@ -1,5 +1,6 @@
 import { select, classList, settings } from '../js/settings.js';
 import Song from './components/Song.js';
+import Subscribe from './components/Subscribe.js';
 
 const app = {
   initPages: function () {
@@ -109,12 +110,19 @@ const app = {
     });
   },
 
+  initSubscribe: function () {
+    const subscribeWrapper = document.querySelector('.subscribe__wrapper');
+
+    new Subscribe(subscribeWrapper);
+  },
+
   init: function () {
     const thisApp = this;
     console.log('*** App starting ***');
 
     thisApp.initPages();
     thisApp.initData();
+    thisApp.initSubscribe();
   },
 };
 

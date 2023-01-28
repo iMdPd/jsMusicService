@@ -7,6 +7,7 @@ export const select = {
   },
   templateOf: {
     songWrapper: '#template-song-wrapper',
+    subscribe: '#template-subscribe',
     searchPage: '#template-search-page',
   },
   nav: {
@@ -34,6 +35,11 @@ export const templates = {
   songWrapper: Handlebars.compile(
     document.querySelector(select.templateOf.songWrapper).innerHTML
   ),
+
+  subscribe: Handlebars.compile(
+    document.querySelector(select.templateOf.subscribe).innerHTML
+  ),
+
   searchPage: Handlebars.compile(
     document.querySelector(select.templateOf.searchPage).innerHTML
   ),
