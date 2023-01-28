@@ -64,9 +64,11 @@ const app = {
         return rawResponse.json();
       })
       .then(function (parsedResponse) {
+        parsedResponse.sort((a, b) => {
+          return a.ranking - b.ranking;
+        });
         thisApp.data.songs = parsedResponse;
 
-        console.log(thisApp.data.songs);
         thisApp.initHome();
         thisApp.initMusicPlayerWidget();
       });
