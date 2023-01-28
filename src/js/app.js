@@ -1,5 +1,5 @@
 import { select, classList, settings } from '../js/settings.js';
-import Home from '../js/components/Home.js';
+import Song from './components/Song.js';
 
 const app = {
   initPages: function () {
@@ -70,28 +70,43 @@ const app = {
         });
         thisApp.data.songs = parsedResponse;
 
-        thisApp.initHome();
+        thisApp.initSong();
         thisApp.initMusicPlayerWidget();
       });
   },
 
-  initHome: function () {
+  initSong: function () {
     const thisApp = this;
 
     for (let songData in thisApp.data.songs) {
-      new Home(thisApp.data.songs[songData]);
+      new Song(thisApp.data.songs[songData]);
     }
+
+    thisApp.subscribeLink = document.querySelector('.button-box a');
+    console.log('subscribeLink', thisApp.subscribeLink);
+
+    thisApp.subscribeLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      const clickedElement = this;
+
+      console.log(clickedElement);
+      const id = clickedElement.getAttribute('href').replace('#', '');
+
+      /* run thisApp.activatePage with that id */
+      thisApp.activePage(id);
+
+      /* change url # */
+      window.location.hash = '#/' + id;
+    });
   },
 
   initMusicPlayerWidget() {
-    // document.addEventListener('load', function () {
     /* eslint-disable */
     GreenAudioPlayer.init({
       /* eslint-enable */
       selector: select.containerOf.songPlayer,
       stopOthersOnPlay: true,
     });
-    // });
   },
 
   init: function () {

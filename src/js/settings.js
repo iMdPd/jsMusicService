@@ -1,11 +1,13 @@
 export const select = {
   containerOf: {
     pages: '#pages',
-    home: '.home-wrapper',
+    homePage: '.home-wrapper',
+    searchPage: '.search-wrapper',
     songPlayer: '.song-player',
   },
   templateOf: {
-    homePage: '#template-home-page',
+    songWrapper: '#template-song-wrapper',
+    searchPage: '#template-search-page',
   },
   nav: {
     links: '.main-nav a',
@@ -29,7 +31,10 @@ export const settings = {
 };
 
 export const templates = {
-  homePage: Handlebars.compile(
-    document.querySelector(select.templateOf.homePage).innerHTML
+  songWrapper: Handlebars.compile(
+    document.querySelector(select.templateOf.songWrapper).innerHTML
+  ),
+  searchPage: Handlebars.compile(
+    document.querySelector(select.templateOf.searchPage).innerHTML
   ),
 };
