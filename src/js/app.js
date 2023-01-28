@@ -18,6 +18,7 @@ const app = {
         break;
       }
     }
+
     thisApp.activePage(pageMatchingHash);
     // console.log(pageMatchingHash);
 
@@ -87,7 +88,7 @@ const app = {
     /* eslint-disable */
     GreenAudioPlayer.init({
       /* eslint-enable */
-      selector: '.song-player',
+      selector: select.containerOf.songPlayer,
       stopOthersOnPlay: true,
     });
     // });

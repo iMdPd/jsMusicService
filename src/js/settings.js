@@ -2,6 +2,7 @@ export const select = {
   containerOf: {
     pages: '#pages',
     home: '.home-wrapper',
+    songPlayer: '.song-player',
   },
   templateOf: {
     homePage: '#template-home-page',

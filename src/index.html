@@ -46,7 +46,7 @@
           <h2 class="subscribe__title">subscribe <span>now</span></h2>
           <div class="row album-wrapper">
             <div class="col-12 col-xl-3 order-last order-xl-first button-box">
-              <a href="#" class="btn btn-one">JOIN NOW</a>
+              <a href="#" class="btn btn-danger">JOIN NOW</a>
             </div>
 
             <div class="col-12 col-xl-9 d-flex justify-content-end author-box">
@@ -71,7 +71,28 @@
         </div>
       </section>
       <section id="search">
-        <div class="search-wrapper container"></div>
+        <div class="search-wrapper container">
+          <h3>search</h3>
+
+          <div class="m-4 row d-flex justify-content-center align-items-center">
+            <label for="inputPassword" class="col-sm-2 col-form-label"
+              >Name</label
+            >
+            <div class="col-sm-6">
+              <input
+                type="text"
+                class="form-control"
+                aria-label="Sizing example input"
+                aria-describedby="inputGroup-sizing-lg"
+                placeholder="Type to search..."
+                id="inputGroup-sizing-lg"
+              />
+            </div>
+            <div class="col-2">
+              <button type="submit" class="btn btn-danger">SEARCH</button>
+            </div>
+          </div>
+        </div>
       </section>
       <section id="discover">
         <div class="discover-wrapper container"></div>
@@ -84,7 +105,7 @@
       <p>all rights reserved</p>
     </footer>
 
-    <!-- _____________________________________________________ SCRIPT SECTION _____________________________________________________ -->
+    <!-- _____________________________________________________ HANDLEBARS SECTION _____________________________________________________ -->
     <script id="template-home-page" type="text/x-handlebars-template">
       <div class='song-wrapper'>
         <div class='song-name'>
@@ -105,6 +126,7 @@
         </div>
       </div>
     </script>
+    <!-- _____________________________________________________ SCRIPT SECTION _____________________________________________________ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
