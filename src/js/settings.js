@@ -2,6 +2,7 @@ export const select = {
   containerOf: {
     pages: '#pages',
     homePage: '.home-wrapper',
+    subscribe: '.subscribe__wrapper',
     searchPage: '.search-wrapper',
     songPlayer: '.song-player',
   },
@@ -12,6 +13,9 @@ export const select = {
   },
   nav: {
     links: '.main-nav a',
+  },
+  subscribe: {
+    link: '.button-box a',
   },
 };
 

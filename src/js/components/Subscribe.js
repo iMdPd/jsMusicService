@@ -14,7 +14,7 @@ class Subscribe {
     thisSubscribe.dom.wrapper = element;
 
     const generatedHTML = templates.subscribe();
-    console.log(generatedHTML);
+    // console.log(generatedHTML);
     thisSubscribe.dom.wrapper.innerHTML = generatedHTML;
   }
 }

@@ -1,6 +1,7 @@
 import { select, classList, settings } from '../js/settings.js';
 import Song from './components/Song.js';
 import Subscribe from './components/Subscribe.js';
+import Search from './components/Search.js';
 
 const app = {
   initPages: function () {
@@ -27,14 +28,19 @@ const app = {
       link.addEventListener('click', function (event) {
         event.preventDefault();
         const clickedElement = this;
-
-        const id = clickedElement.getAttribute('href').replace('#', '');
-
-        thisApp.activePage(id);
-
-        window.location.hash = '#/' + id;
+        thisApp.activeLink(clickedElement);
       });
     }
+  },
+
+  activeLink: function (clickedElement) {
+    const thisApp = this;
+
+    const id = clickedElement.getAttribute('href').replace('#', '');
+
+    thisApp.activePage(id);
+
+    window.location.hash = '#/' + id;
   },
 
   activePage: function (pageId) {
@@ -70,7 +76,7 @@ const app = {
           return a.ranking - b.ranking;
         });
         thisApp.data.songs = parsedResponse;
-
+        thisApp.initSearchPage();
         thisApp.initSong();
         thisApp.initMusicPlayerWidget();
       });
@@ -82,23 +88,6 @@ const app = {
     for (let songData in thisApp.data.songs) {
       new Song(thisApp.data.songs[songData]);
     }
-
-    thisApp.subscribeLink = document.querySelector('.button-box a');
-    console.log('subscribeLink', thisApp.subscribeLink);
-
-    thisApp.subscribeLink.addEventListener('click', function (event) {
-      event.preventDefault();
-      const clickedElement = this;
-
-      console.log(clickedElement);
-      const id = clickedElement.getAttribute('href').replace('#', '');
-
-      /* run thisApp.activatePage with that id */
-      thisApp.activePage(id);
-
-      /* change url # */
-      window.location.hash = '#/' + id;
-    });
   },
 
   initMusicPlayerWidget() {
@@ -111,9 +100,29 @@ const app = {
   },
 
   initSubscribe: function () {
-    const subscribeWrapper = document.querySelector('.subscribe__wrapper');
+    const thisApp = this;
+    const subscribeWrapper = document.querySelector(
+      select.containerOf.subscribe
+    );
 
     new Subscribe(subscribeWrapper);
+
+    thisApp.subscribeLink = document.querySelector(select.subscribe.link);
+    // console.log('subscribeLink', thisApp.subscribeLink);
+
+    thisApp.subscribeLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      const clickedElement = this;
+      thisApp.activeLink(clickedElement);
+    });
+  },
+
+  initSearchPage: function () {
+    const thisApp = this;
+    const searchPageWrapper = document.querySelector(
+      select.containerOf.searchPage
+    );
+    new Search(searchPageWrapper, thisApp.data.songs);
   },
 
   init: function () {
@@ -123,6 +132,7 @@ const app = {
     thisApp.initPages();
     thisApp.initData();
     thisApp.initSubscribe();
+    // thisApp.initSearchPage();
   },
 };
 

@@ -16,8 +16,17 @@ class Song {
 
     thisSong.element = utils.createDOMFromHTML(generatedHTML);
 
-    const songContainer = document.querySelector(select.containerOf.homePage);
-    songContainer.appendChild(thisSong.element);
+    const homePageContainer = document.querySelector(
+      select.containerOf.homePage
+    );
+    // console.log('homeContainer', homePageContainer);
+    homePageContainer.appendChild(thisSong.element);
+
+    // const searchPageContainer = document.querySelector(
+    //   select.containerOf.searchPage
+    // );
+
+    // searchPageContainer.appendChild(thisSong.element);
   }
 }
 
