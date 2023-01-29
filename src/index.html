@@ -24,17 +24,17 @@
     <header class="header">
       <div class="header__wrapper">
         <div class="logo">
-          <h1 class="logo__title">t a s t e</h1>
-          <h4 class="logo__subtitle">engage<br />in<br />art</h4>
+          <h1 class="logo__title uppercase">t a s t e</h1>
+          <h4 class="logo__subtitle uppercase">engage<br />in<br />art</h4>
         </div>
       </div>
     </header>
     <!-- _______________________________________________________ NAV SECTION _______________________________________________________ -->
     <section class="nav container">
       <div class="row main-nav">
-        <a href="#home" class="col-2 active">home</a>
-        <a href="#search" class="col-2">search</a>
-        <a href="#discover" class="col-2">discover</a>
+        <a href="#home" class="col-2 uppercase active">home</a>
+        <a href="#search" class="col-2 uppercase">search</a>
+        <a href="#discover" class="col-2 uppercase">discover</a>
       </div>
     </section>
     <!-- ______________________________________________________ PAGES SECTION ______________________________________________________ -->
@@ -58,7 +58,7 @@
     <!-- _______________________________________________________ PAGE FOOTER _______________________________________________________ -->
 
     <footer class="page-footer container">
-      <p>all rights reserved</p>
+      <p>All rights reserved</p>
     </footer>
 
     <!-- _____________________________________________________ HANDLEBARS SECTION _____________________________________________________ -->
@@ -84,10 +84,10 @@
     </script>
 
     <script id="template-subscribe" type="text/x-handlebars-template">
-      <h2 class='subscribe__title'>subscribe <span>now</span></h2>
+      <h2 class='subscribe__title uppercase'>subscribe <span>now</span></h2>
       <div class='row album-wrapper'>
         <div class='col-12 col-xl-3 order-last order-xl-first button-box'>
-          <a href='#join-now' class='btn btn-danger'>JOIN NOW</a>
+          <a href='#join-now' class='btn btn-danger uppercase'>join now</a>
         </div>
 
         <div class='col-12 col-xl-9 d-flex justify-content-end author-box'>
@@ -101,17 +101,20 @@
           </div>
         </div>
         <div class='col-12 description-box'>
-          <h3>new album</h3>
-          <p class='album-information'>available only for subscribers</p>
+          <h3 class='uppercase'>new album</h3>
+          <p class='album-information'>Available only for subscribers</p>
         </div>
       </div>
     </script>
 
     <script id="template-search-page" type="text/x-handlebars-template">
-      <h3>search</h3>
+      <h3 class='uppercase'>search</h3>
 
       <div class='m-4 row d-flex justify-content-center align-items-center'>
-        <label for='inputPassword' class='col-sm-2 col-form-label'>Name</label>
+        <label
+          for='inputPassword'
+          class='col-sm-2 col-form-label uppercase'
+        >Name</label>
         <div class='col-sm-6'>
           <input
             type='text'
@@ -123,7 +126,7 @@
           />
         </div>
         <div class='col-2'>
-          <button type='submit' class='btn btn-danger'>SEARCH</button>
+          <button type='submit' class='btn btn-danger uppercase'>search</button>
         </div>
       </div>
       <div></div>

@@ -19,14 +19,7 @@ class Song {
     const homePageContainer = document.querySelector(
       select.containerOf.homePage
     );
-    // console.log('homeContainer', homePageContainer);
     homePageContainer.appendChild(thisSong.element);
-
-    // const searchPageContainer = document.querySelector(
-    //   select.containerOf.searchPage
-    // );
-
-    // searchPageContainer.appendChild(thisSong.element);
   }
 }
 

@@ -57,7 +57,7 @@
     p {
       margin: 0;
       color: $color-logo;
-      text-transform: capitalize;
+      // text-transform: capitalize;
       font-size: 2vw;
       letter-spacing: 0.17em;
     }
@@ -79,7 +79,7 @@
   text-align: left;
   line-height: 1;
   position: absolute;
-  right: 165px;
+  right: 185px;
   bottom: 40px;
 
   .firstname,

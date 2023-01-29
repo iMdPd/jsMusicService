@@ -79,6 +79,7 @@ const app = {
         thisApp.initSearchPage();
         thisApp.initSong();
         thisApp.initMusicPlayerWidget();
+        thisApp.toUppercase();
       });
   },
 
@@ -97,6 +98,17 @@ const app = {
       selector: select.containerOf.songPlayer,
       stopOthersOnPlay: true,
     });
+  },
+
+  toUppercase: function () {
+    const upperCaseWrapper = document.querySelectorAll('.uppercase');
+
+    console.log(upperCaseWrapper);
+
+    for (let i = 0; i < upperCaseWrapper.length; i++) {
+      upperCaseWrapper[i].innerHTML =
+        upperCaseWrapper[i].innerHTML.toUpperCase();
+    }
   },
 
   initSubscribe: function () {
@@ -130,9 +142,8 @@ const app = {
     console.log('*** App starting ***');
 
     thisApp.initPages();
-    thisApp.initData();
     thisApp.initSubscribe();
-    // thisApp.initSearchPage();
+    thisApp.initData();
   },
 };
 

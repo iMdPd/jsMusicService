@@ -1,4 +1,5 @@
-import { templates } from '../settings.js';
+import { templates, select } from '../settings.js';
+import utils from '../utils.js';
 
 class Search {
   constructor(element, data) {
@@ -25,7 +26,6 @@ class Search {
 
     thisSearch.dataSongs = data;
     console.log(thisSearch.dataSongs);
-    console.log(thisSearch.dataSongs[1].textContent);
 
     const searchButton = thisSearch.dom.wrapper.querySelector('.btn');
 
@@ -34,8 +34,28 @@ class Search {
 
       console.log(searchInput.value);
 
+      const generatedHTML = templates.songWrapper(data);
+      // console.log(generatedHTML);
+
+      thisSearch.element = utils.createDOMFromHTML(generatedHTML);
+
+      const searchPageContainer = document.querySelector(
+        select.containerOf.searchPage
+      );
+      searchPageContainer.appendChild(thisSearch.element);
+
       if (searchInput.value) {
-        return alert('OK!');
+        for (let i = 0; i < thisSearch.dataSongs.length; i++) {
+          if (
+            thisSearch.dataSongs[i].author
+              .toLowerCase()
+              .includes(searchInput.value.toLowerCase())
+          ) {
+            thisSearch.dataSongs[i].classList.remove('is-hidden');
+          } else {
+            thisSearch.dataSongs[i].classList.add('is-hidden');
+          }
+        }
       } else {
         return alert('No filters selected!');
       }
