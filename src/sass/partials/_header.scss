@@ -30,9 +30,12 @@
     color: $color-logo;
     position: absolute;
     width: 100%;
-    top: 10px;
     transform: translate(0%, -50%);
 
+    .logo__title {
+      direction: rtl;
+      text-indent: -0.5em;
+    }
     .logo__subtitle {
       line-height: 2em;
       margin: 0;

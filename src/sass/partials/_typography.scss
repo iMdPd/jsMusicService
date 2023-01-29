@@ -1,7 +1,7 @@
 /* universal classes for headings, titles ... */
 h1 {
-  font-size: 9.5vw;
-  letter-spacing: $letter-spacing;
+  font-size: 10vw;
+  letter-spacing: 0.65em;
   margin: 0;
   font-weight: $font-bold;
 }
@@ -26,3 +26,5 @@ h4 {
   margin: 20px 0;
   font-weight: $font-black;
 }
+
+

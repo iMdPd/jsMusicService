@@ -1,0 +1,95 @@
+@media (min-width: 860px) and (max-width: 1200px) {
+  h4 {
+    font-size: 2vw;
+  }
+}
+
+@media (max-width: 860px) {
+  h1 {
+    font-size: 15vw;
+  }
+
+  h2 {
+    font-size: 6vw;
+  }
+
+  h3 {
+    font-size: 2.5vw;
+  }
+
+  h4 {
+    font-size: 3vw;
+  }
+
+  .main-nav {
+    a {
+      font-size: 3vw;
+    }
+  }
+  .album-wrapper {
+    width: 95%;
+    padding: 0 10px;
+    .description-box p {
+      font-size: 2.5vw;
+    }
+  }
+
+  .page-footer p {
+    font-size: 2vw;
+  }
+}
+
+@media (max-width: 550px) {
+  h3 {
+    font-size: 4vw;
+    text-align: center;
+  }
+
+  .album-wrapper .description-box p {
+    font-size: 4vw;
+    text-align: center;
+  }
+  .song-description p {
+    scale: 0.8;
+  }
+
+  .subscribe__wrapper .btn {
+    scale: 0.7;
+  }
+
+  .green-audio-player {
+    scale: 0.7;
+  }
+
+  .home-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: min-content;
+  }
+
+  .author-album .artist-picture {
+    scale: 0.7;
+  }
+
+  .album-wrapper .author-box {
+    display: block;
+  }
+
+  .author-name {
+    z-index: 1;
+    right: 50px;
+    bottom: -10px;
+
+    .firstname {
+      text-align: center;
+      color: $color-btn;
+    }
+    .lastname {
+      text-align: center;
+      span {
+        color: $color-logo;
+      }
+    }
+  }
+}

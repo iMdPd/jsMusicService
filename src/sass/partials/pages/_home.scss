@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  // max-height: 600px;
+  min-height: 650px;
   height: 100vh;
   width: 100%;
 
@@ -47,6 +47,7 @@
   .author-box {
     position: relative;
     flex-wrap: nowrap;
+    display: flex;
     align-items: flex-end;
   }
 
@@ -76,12 +77,18 @@
 
 .author-name {
   color: $color-logo;
-  text-align: left;
   line-height: 1;
   position: absolute;
   right: 185px;
   bottom: 40px;
+  width: 340px;
+  .firstname {
+    text-align: left;
+  }
 
+  .lastname {
+    text-align: right;
+  }
   .firstname,
   .lastname {
     margin: 0;
@@ -99,7 +106,6 @@
 
 .subscribe__wrapper .btn {
   min-width: 160px;
-  margin: 24px auto 0 auto;
   padding: 16px;
   font-size: 24px;
   font-weight: $font-bold;
