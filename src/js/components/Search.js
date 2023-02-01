@@ -1,5 +1,4 @@
-import { templates, select } from '../settings.js';
-import utils from '../utils.js';
+import { templates } from '../settings.js';
 
 class Search {
   constructor(element, data) {
@@ -13,7 +12,6 @@ class Search {
     const thisSearch = this;
 
     const generatedHTML = templates.searchPage();
-    // console.log(generatedHTML);
 
     thisSearch.dom = {};
     thisSearch.dom.wrapper = element;
@@ -25,40 +23,47 @@ class Search {
     const thisSearch = this;
 
     thisSearch.dataSongs = data;
-    console.log(thisSearch.dataSongs);
 
-    const searchButton = thisSearch.dom.wrapper.querySelector('.btn');
+    const searchButton = thisSearch.dom.wrapper.querySelector('.btn'),
+      searchInput = thisSearch.dom.wrapper.querySelector('.form-control');
 
     searchButton.addEventListener('click', function () {
-      const searchInput = thisSearch.dom.wrapper.querySelector('.form-control');
-
-      console.log(searchInput.value);
-
-      const generatedHTML = templates.songWrapper(data);
-      // console.log(generatedHTML);
-
-      thisSearch.element = utils.createDOMFromHTML(generatedHTML);
-
-      const searchPageContainer = document.querySelector(
-        select.containerOf.searchPage
-      );
-      searchPageContainer.appendChild(thisSearch.element);
-
-      if (searchInput.value) {
-        for (let i = 0; i < thisSearch.dataSongs.length; i++) {
-          if (
-            thisSearch.dataSongs[i].author
-              .toLowerCase()
-              .includes(searchInput.value.toLowerCase())
-          ) {
-            thisSearch.dataSongs[i].classList.remove('is-hidden');
-          } else {
-            thisSearch.dataSongs[i].classList.add('is-hidden');
-          }
-        }
-      } else {
+      if (!searchInput.value) {
         return alert('No filters selected!');
+      } else {
+        const filteredSongs = thisSearch.dataSongs.filter((song) => {
+          return (
+            song.author
+              .toLowerCase()
+              .replaceAll(' ', '')
+              .includes(searchInput.value.toLowerCase()) ||
+            song.title
+              .toLowerCase()
+              .replaceAll(' ', '')
+              .includes(searchInput.value.toLowerCase())
+          );
+        });
+
+        if (filteredSongs.length == 0) {
+          return alert('There are no results matching the criteria given');
+        } else {
+          const generatedHTML = templates.songWrapper(filteredSongs);
+          console.log(filteredSongs.length);
+
+          const searchPageContainer = document.querySelector('.song-container');
+          searchPageContainer.innerHTML = generatedHTML;
+        }
       }
+      thisSearch.initMusicPlayerWidget();
+    });
+  }
+
+  initMusicPlayerWidget() {
+    /* eslint-disable */
+    GreenAudioPlayer.init({
+      /* eslint-enable */
+      selector: '.search-wrapper .song-player',
+      stopOthersOnPlay: true,
     });
   }
 }

@@ -57,30 +57,32 @@
 
     <!-- _______________________________________________________ PAGE FOOTER _______________________________________________________ -->
 
-    <footer class="page-footer container">
+    <footer class="page-footer">
       <p>All rights reserved</p>
     </footer>
 
     <!-- _____________________________________________________ HANDLEBARS SECTION _____________________________________________________ -->
     <script id="template-song-wrapper" type="text/x-handlebars-template">
-      <div class='song-wrapper'>
-        <div class='song-name'>
-          <h4>{{author}} - {{title}}</h4>
-        </div>
-        <div class='song-player'>
-          <audio>
-            <source src='songs/{{filename}}' type='audio/mpeg' />
-          </audio>
-        </div>
-        <div class='row song-description'>
-          <div class='col-7 d-flex justify-content-start'>
-            <p>Categories: {{#each categories}} {{this}}, {{/each}}</p>
+      {{#each this}}
+        <div class='song-wrapper'>
+          <div class='song-name'>
+            <h4>{{author}} - {{title}}</h4>
           </div>
-          <div class='col-5 d-flex justify-content-end'>
-            <p>#{{ranking}} in the ranking</p>
+          <div class='song-player'>
+            <audio>
+              <source src='songs/{{filename}}' type='audio/mpeg' />
+            </audio>
+          </div>
+          <div class='row song-description'>
+            <div class='col-7 d-flex justify-content-start'>
+              <p>Categories: {{#each categories}} {{this}}, {{/each}}</p>
+            </div>
+            <div class='col-5 d-flex justify-content-end'>
+              <p>#{{ranking}} in the ranking</p>
+            </div>
           </div>
         </div>
-      </div>
+      {{/each}}
     </script>
 
     <script id="template-subscribe" type="text/x-handlebars-template">
@@ -129,7 +131,8 @@
           <button type='submit' class='btn btn-danger uppercase'>search</button>
         </div>
       </div>
-      <div></div>
+      <h3>We have found songs...</h3>
+      <div class='song-container'></div>
     </script>
     <!-- _____________________________________________________ SCRIPT SECTION _____________________________________________________ -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.1.0/handlebars.min.js"></script>

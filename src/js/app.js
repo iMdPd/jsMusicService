@@ -78,7 +78,7 @@ const app = {
         thisApp.data.songs = parsedResponse;
         thisApp.initSearchPage();
         thisApp.initSong();
-        thisApp.initMusicPlayerWidget();
+        // thisApp.initMusicPlayerWidget();
         thisApp.toUppercase();
       });
   },
@@ -86,24 +86,13 @@ const app = {
   initSong: function () {
     const thisApp = this;
 
-    for (let songData in thisApp.data.songs) {
-      new Song(thisApp.data.songs[songData]);
-    }
-  },
-
-  initMusicPlayerWidget() {
-    /* eslint-disable */
-    GreenAudioPlayer.init({
-      /* eslint-enable */
-      selector: select.containerOf.songPlayer,
-      stopOthersOnPlay: true,
-    });
+    new Song(thisApp.data.songs);
   },
 
   toUppercase: function () {
     const upperCaseWrapper = document.querySelectorAll('.uppercase');
 
-    console.log(upperCaseWrapper);
+    // console.log(upperCaseWrapper);
 
     for (let i = 0; i < upperCaseWrapper.length; i++) {
       upperCaseWrapper[i].innerHTML =
