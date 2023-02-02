@@ -1,7 +1,8 @@
 import { select, classList, settings } from '../js/settings.js';
 import { Songs } from './components/Songs.js';
-import Subscribe from './components/Subscribe.js';
-import Search from './components/Search.js';
+import { Subscribe } from './components/Subscribe.js';
+import { Search } from './components/Search.js';
+import { Discover } from './components/Discover.js';
 
 const app = {
   initPages: function () {
@@ -77,6 +78,7 @@ const app = {
         });
         thisApp.data.songs = parsedResponse;
         thisApp.initSearchPage();
+        thisApp.initDiscoverPage();
         thisApp.initSong();
       });
   },
@@ -120,6 +122,15 @@ const app = {
       select.containerOf.searchPage
     );
     new Search(searchPageWrapper, thisApp.data.songs);
+  },
+
+  initDiscoverPage() {
+    const thisApp = this;
+
+    const discoverPageWrapper = document.querySelector(
+      select.containerOf.discoverPage
+    );
+    new Discover(discoverPageWrapper, thisApp.data.songs);
   },
 
   init: function () {

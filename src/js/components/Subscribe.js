@@ -1,6 +1,6 @@
 import { templates } from '../settings.js';
 
-class Subscribe {
+export class Subscribe {
   constructor(element) {
     const thisSubscribe = this;
 
@@ -18,5 +18,3 @@ class Subscribe {
     thisSubscribe.dom.wrapper.innerHTML = generatedHTML;
   }
 }
-
-export default Subscribe;

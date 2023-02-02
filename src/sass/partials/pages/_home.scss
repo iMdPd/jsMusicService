@@ -58,9 +58,8 @@
     p {
       margin: 0;
       color: $color-main;
-      // text-transform: capitalize;
       font-size: 2vw;
-      letter-spacing: 0.17em;
+      letter-spacing: $letter-spacing;
     }
   }
 }

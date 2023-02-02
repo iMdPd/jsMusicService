@@ -3,6 +3,7 @@ export const select = {
     pages: '#pages',
     homePage: '.home-wrapper',
     searchPage: '.search-wrapper',
+    discoverPage: '.discover-wrapper',
     subscribe: '.subscribe__wrapper',
     songs: '.song-container',
     songPlayer: '.song-player',
@@ -11,9 +12,11 @@ export const select = {
     songWrapper: '#template-song-wrapper',
     subscribe: '#template-subscribe',
     searchPage: '#template-search-page',
+    discoverPage: '#template-discover-page',
   },
   nav: {
     links: '.main-nav a',
+    searchLink: '[href="#search"',
   },
   subscribe: {
     link: '.button-box a',
@@ -53,5 +56,9 @@ export const templates = {
 
   searchPage: Handlebars.compile(
     document.querySelector(select.templateOf.searchPage).innerHTML
+  ),
+
+  discoverPage: Handlebars.compile(
+    document.querySelector(select.templateOf.discoverPage).innerHTML
   ),
 };

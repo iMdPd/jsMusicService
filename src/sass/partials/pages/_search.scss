@@ -28,8 +28,14 @@ input {
     letter-spacing: $letter-spacing;
   }
 
+  h3 {
+    font-size: 3vw;
+  }
+
   > p {
-    color: $color-logo;
+    margin: 0;
+    color: $color-main;
+    font-size: 1.5vw;
     letter-spacing: $letter-spacing;
   }
 }

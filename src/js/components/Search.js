@@ -1,6 +1,6 @@
 import { templates, classList, select } from '../settings.js';
 
-class Search {
+export class Search {
   constructor(element, data) {
     const thisSearch = this;
 
@@ -22,7 +22,7 @@ class Search {
   setDefault() {
     const thisSearch = this;
 
-    thisSearch.navSearchLink = document.querySelector('[href="#search"');
+    thisSearch.navSearchLink = document.querySelector(select.nav.searchLink);
 
     /* logic teaken from https://www.seanmcp.com/articles/event-listener-for-class-change/ */
     function callback(mutationsList) {
@@ -89,11 +89,16 @@ class Search {
           thisSearch.songsContainer.innerHTML = '';
           thisSearch.input.value = null;
         } else {
-          thisSearch.songsCounter.innerHTML =
-            'We have found ' + filteredSongs.length + ' songs...';
           thisSearch.songsCounter.classList.remove(classList.hidden);
           thisSearch.alerts[1].classList.add(classList.hidden);
           thisSearch.input.value = null;
+          if (filteredSongs.length <= 1) {
+            thisSearch.songsCounter.innerHTML =
+              'We have found ' + filteredSongs.length + ' song...';
+          } else {
+            thisSearch.songsCounter.innerHTML =
+              'We have found ' + filteredSongs.length + ' songs...';
+          }
 
           const generatedHTML = templates.songWrapper(filteredSongs);
           thisSearch.songsContainer.innerHTML = generatedHTML;
@@ -112,5 +117,3 @@ class Search {
     });
   }
 }
-
-export default Search;
