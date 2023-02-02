@@ -1,5 +1,5 @@
 import { select, classList, settings } from '../js/settings.js';
-import Song from './components/Song.js';
+import { Songs } from './components/Songs.js';
 import Subscribe from './components/Subscribe.js';
 import Search from './components/Search.js';
 
@@ -78,27 +78,25 @@ const app = {
         thisApp.data.songs = parsedResponse;
         thisApp.initSearchPage();
         thisApp.initSong();
-        // thisApp.initMusicPlayerWidget();
-        thisApp.toUppercase();
       });
   },
 
   initSong: function () {
     const thisApp = this;
 
-    new Song(thisApp.data.songs);
+    new Songs(thisApp.data.songs);
   },
 
-  toUppercase: function () {
-    const upperCaseWrapper = document.querySelectorAll('.uppercase');
+  // toUppercase: function () {
+  //   const upperCaseWrapper = document.querySelectorAll('.uppercase');
 
-    // console.log(upperCaseWrapper);
+  //   // console.log(upperCaseWrapper);
 
-    for (let i = 0; i < upperCaseWrapper.length; i++) {
-      upperCaseWrapper[i].innerHTML =
-        upperCaseWrapper[i].innerHTML.toUpperCase();
-    }
-  },
+  //   for (let i = 0; i < upperCaseWrapper.length; i++) {
+  //     upperCaseWrapper[i].innerHTML =
+  //       upperCaseWrapper[i].innerHTML.toUpperCase();
+  //   }
+  // },
 
   initSubscribe: function () {
     const thisApp = this;
@@ -133,6 +131,7 @@ const app = {
     thisApp.initPages();
     thisApp.initSubscribe();
     thisApp.initData();
+    // thisApp.toUppercase();
   },
 };
 

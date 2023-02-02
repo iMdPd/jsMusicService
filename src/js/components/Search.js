@@ -23,30 +23,39 @@ class Search {
     const thisSearch = this;
 
     thisSearch.dataSongs = data;
+    thisSearch.searchButton = thisSearch.dom.wrapper.querySelector('.btn');
+    thisSearch.searchInput =
+      thisSearch.dom.wrapper.querySelector('.form-control');
+    thisSearch.inputAlerts = document.querySelectorAll('.search-wrapper p');
+    thisSearch.songContainer = document.querySelector(
+      '.search-wrapper .song-container'
+    );
 
-    const searchButton = thisSearch.dom.wrapper.querySelector('.btn'),
-      searchInput = thisSearch.dom.wrapper.querySelector('.form-control');
-
-    searchButton.addEventListener('click', function () {
-      if (!searchInput.value) {
-        return alert('No filters selected!');
+    thisSearch.searchButton.addEventListener('click', function () {
+      if (!thisSearch.searchInput.value) {
+        thisSearch.inputAlerts[1].classList.add('hidden');
+        thisSearch.songContainer.innerHTML = '';
+        thisSearch.inputAlerts[0].classList.remove('hidden');
       } else {
+        thisSearch.inputAlerts[0].classList.add('hidden');
         const filteredSongs = thisSearch.dataSongs.filter((song) => {
           return (
             song.author
               .toLowerCase()
               .replaceAll(' ', '')
-              .includes(searchInput.value.toLowerCase()) ||
+              .includes(thisSearch.searchInput.value.toLowerCase()) ||
             song.title
               .toLowerCase()
               .replaceAll(' ', '')
-              .includes(searchInput.value.toLowerCase())
+              .includes(thisSearch.searchInput.value.toLowerCase())
           );
         });
 
         if (filteredSongs.length == 0) {
-          return alert('There are no results matching the criteria given');
+          thisSearch.inputAlerts[1].classList.remove('hidden');
+          thisSearch.songContainer.innerHTML = '';
         } else {
+          thisSearch.inputAlerts[1].classList.add('hidden');
           const generatedHTML = templates.songWrapper(filteredSongs);
           console.log(filteredSongs.length);
 

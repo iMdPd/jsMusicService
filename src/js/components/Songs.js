@@ -1,6 +1,6 @@
 import { templates, select } from '../settings.js';
 
-class Song {
+export class Songs {
   constructor(data) {
     const thisSong = this;
 
@@ -11,9 +11,6 @@ class Song {
     const thisSong = this;
 
     const generatedHTML = templates.songWrapper(data);
-    // console.log(generatedHTML);
-
-    // thisSong.element = utils.createDOMFromHTML(generatedHTML);
 
     const homePageContainer = document.querySelector(
       select.containerOf.homePage
@@ -31,5 +28,3 @@ class Song {
     });
   }
 }
-
-export default Song;
