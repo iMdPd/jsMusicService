@@ -28,7 +28,7 @@
   width: 100%;
 
   .subscribe__title {
-    color: $color-logo;
+    color: $color-main;
     position: absolute;
     width: 100%;
     transform: translate(0%, -50vh);
@@ -57,7 +57,7 @@
 
     p {
       margin: 0;
-      color: $color-logo;
+      color: $color-main;
       // text-transform: capitalize;
       font-size: 2vw;
       letter-spacing: 0.17em;
@@ -76,7 +76,7 @@
 }
 
 .author-name {
-  color: $color-logo;
+  color: $color-main;
   line-height: 1;
   position: absolute;
   right: 185px;
@@ -100,7 +100,7 @@
     font-weight: $font-black;
 
     span {
-      color: $color-btn;
+      color: $color-logo;
       margin: 0;
     }
   }

@@ -2,8 +2,9 @@ export const select = {
   containerOf: {
     pages: '#pages',
     homePage: '.home-wrapper',
-    subscribe: '.subscribe__wrapper',
     searchPage: '.search-wrapper',
+    subscribe: '.subscribe__wrapper',
+    songs: '.song-container',
     songPlayer: '.song-player',
   },
   templateOf: {
@@ -17,12 +18,18 @@ export const select = {
   subscribe: {
     link: '.button-box a',
   },
+  searchPage: {
+    button: '.btn',
+    input: '.form-control',
+    alerts: '.search-wrapper p',
+    songsContainer: '.search-wrapper .song-container',
+    songsCounter: '.songs-counter',
+  },
 };
 
 export const classList = {
-  navLink: {
-    active: 'active',
-  },
+  active: 'active',
+  hidden: 'hidden',
 };
 
 export const settings = {

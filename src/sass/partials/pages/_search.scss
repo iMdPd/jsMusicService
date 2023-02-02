@@ -14,11 +14,22 @@ input {
 }
 
 .form-control:focus {
-  border-color: rgb(207 56 62);
+  border-color: $color-logo;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgb(207 56 202 / 25%);
+  box-shadow: 0 0 0 0.25rem rgba(207, 56, 61, 0.301);
 }
 
 .hidden {
   display: none;
+}
+
+.search-wrapper {
+  .btn {
+    letter-spacing: $letter-spacing;
+  }
+
+  > p {
+    color: $color-logo;
+    letter-spacing: $letter-spacing;
+  }
 }

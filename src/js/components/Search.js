@@ -1,4 +1,4 @@
-import { templates } from '../settings.js';
+import { templates, classList, select } from '../settings.js';
 
 class Search {
   constructor(element, data) {
@@ -6,6 +6,7 @@ class Search {
 
     thisSearch.render(element);
     thisSearch.filterElements(data);
+    thisSearch.setDefault();
   }
 
   render(element) {
@@ -15,52 +16,87 @@ class Search {
 
     thisSearch.dom = {};
     thisSearch.dom.wrapper = element;
-
     thisSearch.dom.wrapper.innerHTML = generatedHTML;
+  }
+
+  setDefault() {
+    const thisSearch = this;
+
+    thisSearch.navSearchLink = document.querySelector('[href="#search"');
+
+    /* logic teaken from https://www.seanmcp.com/articles/event-listener-for-class-change/ */
+    function callback(mutationsList) {
+      mutationsList.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          for (let alert of thisSearch.alerts) {
+            alert.classList.add(classList.hidden);
+          }
+          thisSearch.songsCounter.classList.add(classList.hidden);
+          thisSearch.songsContainer.innerHTML = '';
+          thisSearch.input.value = null;
+        }
+      });
+    }
+
+    const mutationObserver = new MutationObserver(callback);
+
+    mutationObserver.observe(thisSearch.navSearchLink, { attributes: true });
   }
 
   filterElements(data) {
     const thisSearch = this;
 
     thisSearch.dataSongs = data;
-    thisSearch.searchButton = thisSearch.dom.wrapper.querySelector('.btn');
-    thisSearch.searchInput =
-      thisSearch.dom.wrapper.querySelector('.form-control');
-    thisSearch.inputAlerts = document.querySelectorAll('.search-wrapper p');
-    thisSearch.songContainer = document.querySelector(
-      '.search-wrapper .song-container'
+
+    thisSearch.button = thisSearch.dom.wrapper.querySelector(
+      select.searchPage.button
+    );
+    thisSearch.input = thisSearch.dom.wrapper.querySelector(
+      select.searchPage.input
+    );
+    thisSearch.alerts = document.querySelectorAll(select.searchPage.alerts);
+    thisSearch.songsContainer = document.querySelector(
+      select.searchPage.songsContainer
+    );
+    thisSearch.songsCounter = document.querySelector(
+      select.searchPage.songsCounter
     );
 
-    thisSearch.searchButton.addEventListener('click', function () {
-      if (!thisSearch.searchInput.value) {
-        thisSearch.inputAlerts[1].classList.add('hidden');
-        thisSearch.songContainer.innerHTML = '';
-        thisSearch.inputAlerts[0].classList.remove('hidden');
+    thisSearch.button.addEventListener('click', function () {
+      if (!thisSearch.input.value) {
+        thisSearch.songsCounter.classList.add(classList.hidden);
+        thisSearch.alerts[1].classList.add(classList.hidden);
+        thisSearch.songsContainer.innerHTML = '';
+        thisSearch.alerts[0].classList.remove(classList.hidden);
       } else {
-        thisSearch.inputAlerts[0].classList.add('hidden');
+        thisSearch.alerts[0].classList.add(classList.hidden);
         const filteredSongs = thisSearch.dataSongs.filter((song) => {
           return (
             song.author
               .toLowerCase()
               .replaceAll(' ', '')
-              .includes(thisSearch.searchInput.value.toLowerCase()) ||
+              .includes(thisSearch.input.value.toLowerCase()) ||
             song.title
               .toLowerCase()
               .replaceAll(' ', '')
-              .includes(thisSearch.searchInput.value.toLowerCase())
+              .includes(thisSearch.input.value.toLowerCase())
           );
         });
 
         if (filteredSongs.length == 0) {
-          thisSearch.inputAlerts[1].classList.remove('hidden');
-          thisSearch.songContainer.innerHTML = '';
+          thisSearch.songsCounter.classList.add(classList.hidden);
+          thisSearch.alerts[1].classList.remove(classList.hidden);
+          thisSearch.songsContainer.innerHTML = '';
+          thisSearch.input.value = null;
         } else {
-          thisSearch.inputAlerts[1].classList.add('hidden');
-          const generatedHTML = templates.songWrapper(filteredSongs);
-          console.log(filteredSongs.length);
+          thisSearch.songsCounter.innerHTML =
+            'We have found ' + filteredSongs.length + ' songs...';
+          thisSearch.songsCounter.classList.remove(classList.hidden);
+          thisSearch.alerts[1].classList.add(classList.hidden);
+          thisSearch.input.value = null;
 
-          const searchPageContainer = document.querySelector('.song-container');
-          searchPageContainer.innerHTML = generatedHTML;
+          const generatedHTML = templates.songWrapper(filteredSongs);
+          thisSearch.songsContainer.innerHTML = generatedHTML;
         }
       }
       thisSearch.initMusicPlayerWidget();

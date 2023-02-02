@@ -48,12 +48,12 @@ const app = {
 
     /*toggle class "active" to matching pages, remove form non-matching */
     for (let page of thisApp.pages) {
-      page.classList.toggle(classList.navLink.active, page.id == pageId);
+      page.classList.toggle(classList.active, page.id == pageId);
     }
     /*toggle class "active" to matching links, remove form non-matching */
     for (let link of thisApp.navLinks) {
       link.classList.toggle(
-        classList.navLink.active,
+        classList.active,
         link.getAttribute('href') == '#' + pageId
       );
     }
@@ -87,14 +87,12 @@ const app = {
     new Songs(thisApp.data.songs);
   },
 
-  // toUppercase: function () {
+  // uppercaseLetters: function () {
   //   const upperCaseWrapper = document.querySelectorAll('.uppercase');
-
-  //   // console.log(upperCaseWrapper);
 
   //   for (let i = 0; i < upperCaseWrapper.length; i++) {
   //     upperCaseWrapper[i].innerHTML =
-  //       upperCaseWrapper[i].innerHTML.toUpperCase();
+  //       upperCaseWrapper[i].innerHTML.uppercaseLetters();
   //   }
   // },
 
@@ -131,7 +129,7 @@ const app = {
     thisApp.initPages();
     thisApp.initSubscribe();
     thisApp.initData();
-    // thisApp.toUppercase();
+    // thisApp.uppercaseLetters();
   },
 };
 
