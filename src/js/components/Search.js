@@ -22,7 +22,7 @@ export class Search {
   setDefault() {
     const thisSearch = this;
 
-    thisSearch.navSearchLink = document.querySelector(select.nav.searchLink);
+    const navSearchLink = document.querySelector(select.nav.searchLink);
 
     /* logic teaken from https://www.seanmcp.com/articles/event-listener-for-class-change/ */
     function callback(mutationsList) {
@@ -40,7 +40,7 @@ export class Search {
 
     const mutationObserver = new MutationObserver(callback);
 
-    mutationObserver.observe(thisSearch.navSearchLink, { attributes: true });
+    mutationObserver.observe(navSearchLink, { attributes: true });
   }
 
   filterElements(data) {

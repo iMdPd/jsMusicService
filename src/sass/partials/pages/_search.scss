@@ -33,6 +33,11 @@ input {
   }
 
   > p {
+    color: $color-logo;
+    letter-spacing: $letter-spacing;
+  }
+
+  .songs-counter {
     margin: 0;
     color: $color-main;
     font-size: 1.5vw;

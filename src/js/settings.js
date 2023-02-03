@@ -17,6 +17,7 @@ export const select = {
   nav: {
     links: '.main-nav a',
     searchLink: '[href="#search"',
+    discoverLink: '[href="#discover"',
   },
   subscribe: {
     link: '.button-box a',
@@ -27,6 +28,10 @@ export const select = {
     alerts: '.search-wrapper p',
     songsContainer: '.search-wrapper .song-container',
     songsCounter: '.songs-counter',
+  },
+  discoverPage: {
+    songsContainer: '.discover-wrapper .song-container',
+    songWrapper: '.discover-wrapper .song-wrapper',
   },
 };
 
