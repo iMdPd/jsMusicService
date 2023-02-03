@@ -61,14 +61,7 @@
   }
 
   .green-audio-player {
-    scale: 0.7;
-  }
-
-  .home-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: min-content;
+    scale: 0.8;
   }
 
   .author-album .artist-picture {
@@ -96,5 +89,14 @@
         color: $color-main;
       }
     }
+  }
+}
+
+@media (max-width: 360px) {
+  .home-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: min-content;
   }
 }

@@ -8,6 +8,34 @@
     display: block;
   }
 }
+.categories-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  p,
+  li {
+    margin: 0;
+    color: $color-main;
+    font-size: 1vw;
+    letter-spacing: $letter-spacing;
+    display: inline;
+    padding: 0 5px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0px;
+  }
+  li {
+    cursor: pointer;
+  }
+  li:hover {
+    color: $color-logo;
+  }
+  .selected {
+    color: $color-logo;
+  }
+}
 
 .song-description p {
   padding: 0 20px;
