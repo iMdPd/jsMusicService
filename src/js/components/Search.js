@@ -5,7 +5,8 @@ export class Search {
     const thisSearch = this;
 
     thisSearch.render(element);
-    thisSearch.filterElements(data);
+    thisSearch.getData(data);
+    thisSearch.filterElements();
     thisSearch.setDefaultValues();
     thisSearch.generateCategoryInputList(data);
   }
@@ -45,7 +46,7 @@ export class Search {
     mutationObserver.observe(navSearchLink, { attributes: true });
   }
 
-  filterElements(data) {
+  getData(data) {
     const thisSearch = this;
 
     thisSearch.dataSongs = data;
@@ -67,22 +68,22 @@ export class Search {
     thisSearch.songsCounter = document.querySelector(
       select.searchPage.songsCounter
     );
+  }
+
+  filterElements() {
+    const thisSearch = this;
 
     thisSearch.button.addEventListener('click', function () {
       if (
         thisSearch.input.value == '' &&
         thisSearch.select.value == thisSearch.select.children[0].value
       ) {
-        thisSearch.alerts[1].classList.add(classList.hidden);
         const generatedHTML = templates.songWrapper(thisSearch.dataSongs);
+
         thisSearch.songsContainer.innerHTML = generatedHTML;
-        if (thisSearch.dataSongs.length <= 1) {
-          thisSearch.songsCounter.innerHTML =
-            'We have found ' + thisSearch.dataSongs.length + ' song...';
-        } else {
-          thisSearch.songsCounter.innerHTML =
-            'We have found ' + thisSearch.dataSongs.length + ' songs...';
-        }
+
+        thisSearch.songsCounter.innerHTML =
+          'We have found ' + thisSearch.dataSongs.length + ' songs...';
       } else if (
         thisSearch.input.value &&
         thisSearch.select.value == thisSearch.select.children[0].value
@@ -101,15 +102,12 @@ export class Search {
         });
 
         if (filteredSongs.length == 0) {
-          thisSearch.songsCounter.classList.add(classList.hidden);
-          thisSearch.alerts[1].classList.remove(classList.hidden);
           thisSearch.songsContainer.innerHTML = '';
-          thisSearch.input.value = null;
+
+          thisSearch.songsCounter.innerHTML =
+            'We have found ' + filteredSongs.length + ' songs...';
         } else {
-          thisSearch.songsCounter.classList.remove(classList.hidden);
-          thisSearch.alerts[1].classList.add(classList.hidden);
-          thisSearch.input.value = null;
-          if (filteredSongs.length <= 1) {
+          if (filteredSongs.length === 1) {
             thisSearch.songsCounter.innerHTML =
               'We have found ' + filteredSongs.length + ' song...';
           } else {
@@ -124,26 +122,58 @@ export class Search {
         !thisSearch.input.value &&
         thisSearch.select.value == thisSearch.select.value
       ) {
-        thisSearch.songsCounter.classList.remove(classList.hidden);
-        thisSearch.alerts[1].classList.add(classList.hidden);
-        thisSearch.songsContainer.innerHTML = '';
-
-        const filteredSongsList = [];
+        const filteredSongs = [];
         for (let song of thisSearch.dataSongs) {
           if (song.categories.includes(thisSearch.select.value)) {
-            filteredSongsList.push(song);
+            filteredSongs.push(song);
           }
         }
-        const generatedHTML = templates.songWrapper(filteredSongsList);
-        thisSearch.songsContainer.innerHTML = generatedHTML;
 
-        if (filteredSongsList.length <= 1) {
+        if (filteredSongs.length === 1) {
           thisSearch.songsCounter.innerHTML =
-            'We have found ' + filteredSongsList.length + ' song...';
+            'We have found ' + filteredSongs.length + ' song...';
         } else {
           thisSearch.songsCounter.innerHTML =
-            'We have found ' + filteredSongsList.length + ' songs...';
+            'We have found ' + filteredSongs.length + ' songs...';
+
+          const generatedHTML = templates.songWrapper(filteredSongs);
+          thisSearch.songsContainer.innerHTML = generatedHTML;
         }
+      } else if (
+        thisSearch.input.value &&
+        thisSearch.select.value == thisSearch.select.value
+      ) {
+        const songsFilteredByName = thisSearch.dataSongs.filter((song) => {
+          return (
+            song.author
+              .toLowerCase()
+              .replaceAll(' ', '')
+              .includes(thisSearch.input.value.toLowerCase()) ||
+            song.title
+              .toLowerCase()
+              .replaceAll(' ', '')
+              .includes(thisSearch.input.value.toLowerCase())
+          );
+        });
+
+        const SongsFilteredByCategory = [];
+
+        for (let song of songsFilteredByName) {
+          if (song.categories.includes(thisSearch.select.value)) {
+            SongsFilteredByCategory.push(song);
+          }
+        }
+
+        if (SongsFilteredByCategory.length === 1) {
+          thisSearch.songsCounter.innerHTML =
+            'We have found ' + SongsFilteredByCategory.length + ' song...';
+        } else {
+          thisSearch.songsCounter.innerHTML =
+            'We have found ' + SongsFilteredByCategory.length + ' songs...';
+        }
+
+        const generatedHTML = templates.songWrapper(SongsFilteredByCategory);
+        thisSearch.songsContainer.innerHTML = generatedHTML;
       }
 
       /* first validation without select form */
@@ -193,15 +223,14 @@ export class Search {
     });
   }
 
-  generateCategoryInputList(data) {
+  generateCategoryInputList() {
     const thisSearch = this;
-    thisSearch.songs = data;
 
     const songsCategories = [];
     thisSearch.categoriesList = document.getElementById(
       'categories-group-select'
     );
-    for (let song of thisSearch.songs) {
+    for (let song of thisSearch.dataSongs) {
       for (let category of song.categories) {
         if (!songsCategories.includes(category)) {
           songsCategories.push(category);
