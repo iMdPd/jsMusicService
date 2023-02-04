@@ -7,6 +7,7 @@ export class Search {
     thisSearch.render(element);
     thisSearch.filterElements(data);
     thisSearch.setDefault();
+    thisSearch.generateCategoryInputList(data);
   }
 
   render(element) {
@@ -105,6 +106,30 @@ export class Search {
         }
       }
       thisSearch.initMusicPlayerWidget();
+    });
+  }
+
+  generateCategoryInputList(data) {
+    const thisSearch = this;
+    thisSearch.songs = data;
+
+    const songsCategories = [];
+    thisSearch.categoriesList = document.getElementById(
+      'categories-group-select'
+    );
+    console.log(thisSearch.categoriesList);
+    for (let song of thisSearch.songs) {
+      for (let category of song.categories) {
+        if (!songsCategories.includes(category)) {
+          songsCategories.push(category);
+        }
+      }
+    }
+
+    songsCategories.forEach((category) => {
+      let opt = document.createElement('option');
+      opt.innerText = category;
+      thisSearch.categoriesList.appendChild(opt);
     });
   }
 
