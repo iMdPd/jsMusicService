@@ -80,10 +80,7 @@ export class Search {
         thisSearch.categorySelector.value ==
           thisSearch.categorySelector.children[0].value
       ) {
-        /* based on the song list generate HTML element using template songWrapper */
-        const generatedHTML = templates.songWrapper(thisSearch.dataSongs);
-        /* set generatedHTML as innerHTML of songsContainer  */
-        thisSearch.songsContainer.innerHTML = generatedHTML;
+        thisSearch.generateSongsPlayer(thisSearch.dataSongs);
         /* add song counter */
         thisSearch.songsCounter.innerHTML =
           'We have found ' + thisSearch.dataSongs.length + ' songs...';
@@ -93,52 +90,23 @@ export class Search {
         thisSearch.categorySelector.value ==
           thisSearch.categorySelector.children[0].value
       ) {
-        /* set array named filteredSongs which filter for each song from songs list */
-        const filteredSongs = thisSearch.dataSongs.filter((song) => {
-          return (
-            /* get song.author name and lowercase it, then merge author name */
-            song.author
-              .toLowerCase()
-              .replaceAll(' ', '')
-              /* check if song.author name includes input value */
-              .includes(thisSearch.input.value.toLowerCase()) ||
-            /* and get song.title and lowercase it, then merge song title */
-            song.title
-              .toLowerCase()
-              .replaceAll(' ', '')
-              /* check if song.title includes input value */
-              .includes(thisSearch.input.value.toLowerCase())
-          );
-        });
-
+        thisSearch.filterSongs();
         /* if filteredSongs array has no contents */
-        if (filteredSongs.length == 0) {
+        if (thisSearch.filteredSongs.length == 0) {
           /* remove all content from songsContainer */
           thisSearch.songsContainer.innerHTML = '';
           /* add song counter */
           thisSearch.songsCounter.innerHTML =
-            'We have found ' + filteredSongs.length + ' songs...';
+            'We have found ' + thisSearch.filteredSongs.length + ' songs...';
         } else {
-          /* if filteredSongs array has one element */
-          if (filteredSongs.length === 1) {
-            /* add song counter */
-            thisSearch.songsCounter.innerHTML =
-              'We have found ' + filteredSongs.length + ' song...';
-            /* if filteredSongs array has less than one or more than one elements */
-          } else {
-            /* add song counter */
-            thisSearch.songsCounter.innerHTML =
-              'We have found ' + filteredSongs.length + ' songs...';
-          }
-          /* based on the song list generate HTML element using template songWrapper */
-          const generatedHTML = templates.songWrapper(filteredSongs);
-          /* set generatedHTML as innerHTML of songsContainer  */
-          thisSearch.songsContainer.innerHTML = generatedHTML;
+          thisSearch.generateSongCounterValidation(thisSearch.filteredSongs);
+
+          thisSearch.generateSongsPlayer(thisSearch.filteredSongs);
         }
       } else if (
         /* if name input has no value and category select has chosen option */
         !thisSearch.input.value &&
-        thisSearch.categorySelector.value == thisSearch.categorySelector.value
+        thisSearch.categorySelector.value
       ) {
         /* set new empty array named filteredSongs */
         const filteredSongs = [];
@@ -151,106 +119,72 @@ export class Search {
           }
         }
 
-        if (filteredSongs.length === 1) {
+        if (filteredSongs.length == 1) {
           thisSearch.songsCounter.innerHTML =
             'We have found ' + filteredSongs.length + ' song...';
+
+          thisSearch.generateSongsPlayer(filteredSongs);
         } else {
           thisSearch.songsCounter.innerHTML =
             'We have found ' + filteredSongs.length + ' songs...';
-          /* based on the song list generate HTML element using template songWrapper */
-          const generatedHTML = templates.songWrapper(filteredSongs);
-          /* set generatedHTML as innerHTML of songsContainer  */
-          thisSearch.songsContainer.innerHTML = generatedHTML;
+
+          thisSearch.generateSongsPlayer(filteredSongs);
         }
       } else if (
         /* if name input has value and category select has chosen option */
         thisSearch.input.value &&
-        thisSearch.categorySelector.value == thisSearch.categorySelector.value
+        thisSearch.categorySelector.value
       ) {
-        /* set array named songsFilteredByName which filter for each song from songs list */
-        const songsFilteredByName = thisSearch.dataSongs.filter((song) => {
-          return (
-            /* get song.author name and lowercase it, then merge author name */
-            song.author
-              .toLowerCase()
-              .replaceAll(' ', '')
-              /* check if song.author name includes input value */
-              .includes(thisSearch.input.value.toLowerCase()) ||
-            /* and get song.title and lowercase it, then merge song title */
-            song.title
-              .toLowerCase()
-              .replaceAll(' ', '')
-              /* check if song.title includes input value */
-              .includes(thisSearch.input.value.toLowerCase())
-          );
-        });
+        thisSearch.filterSongs();
+
         /* create empty array named songsFilteredByCategory*/
         const songsFilteredByCategory = [];
-        /* for every song of songsFilteredByName array */
-        for (let song of songsFilteredByName) {
+        /* for every song of filteredSongs array */
+        for (let song of thisSearch.filteredSongs) {
           /* if song.categories includes value form category select form */
           if (song.categories.includes(thisSearch.categorySelector.value)) {
             /* add song to array named songsFilteredByCategory */
             songsFilteredByCategory.push(song);
           }
         }
+        thisSearch.generateSongCounterValidation(songsFilteredByCategory);
 
-        if (songsFilteredByCategory.length === 1) {
-          thisSearch.songsCounter.innerHTML =
-            'We have found ' + songsFilteredByCategory.length + ' song...';
-        } else {
-          thisSearch.songsCounter.innerHTML =
-            'We have found ' + songsFilteredByCategory.length + ' songs...';
-        }
-
-        const generatedHTML = templates.songWrapper(songsFilteredByCategory);
-        thisSearch.songsContainer.innerHTML = generatedHTML;
+        thisSearch.generateSongsPlayer(songsFilteredByCategory);
       }
 
-      /* first validation without select form */
-
-      // if (!thisSearch.input.value) {
-      //   thisSearch.songsCounter.classList.add(classList.hidden);
-      //   thisSearch.alerts[1].classList.add(classList.hidden);
-      //   thisSearch.songsContainer.innerHTML = '';
-      //   thisSearch.alerts[0].classList.remove(classList.hidden);
-      // } else {
-      //   thisSearch.alerts[0].classList.add(classList.hidden);
-      //   const filteredSongs = thisSearch.dataSongs.filter((song) => {
-      //     return (
-      //       song.author
-      //         .toLowerCase()
-      //         .replaceAll(' ', '')
-      //         .includes(thisSearch.input.value.toLowerCase()) ||
-      //       song.title
-      //         .toLowerCase()
-      //         .replaceAll(' ', '')
-      //         .includes(thisSearch.input.value.toLowerCase())
-      //     );
-      //   });
-
-      //   if (filteredSongs.length == 0) {
-      //     thisSearch.songsCounter.classList.add(classList.hidden);
-      //     thisSearch.alerts[1].classList.remove(classList.hidden);
-      //     thisSearch.songsContainer.innerHTML = '';
-      //     thisSearch.input.value = null;
-      //   } else {
-      //     thisSearch.songsCounter.classList.remove(classList.hidden);
-      //     thisSearch.alerts[1].classList.add(classList.hidden);
-      //     thisSearch.input.value = null;
-      //     if (filteredSongs.length <= 1) {
-      //       thisSearch.songsCounter.innerHTML =
-      //         'We have found ' + filteredSongs.length + ' song...';
-      //     } else {
-      //       thisSearch.songsCounter.innerHTML =
-      //         'We have found ' + filteredSongs.length + ' songs...';
-      //     }
-
-      //     const generatedHTML = templates.songWrapper(filteredSongs);
-      //     thisSearch.songsContainer.innerHTML = generatedHTML;
-      //   }
-      // }
       thisSearch.initMusicPlayerWidget();
+    });
+  }
+
+  generateSongsPlayer(songList) {
+    const thisSearch = this;
+    /* based on the song list generate HTML element using template songWrapper */
+    const generatedHTML = templates.songWrapper(songList);
+    /* set generatedHTML as innerHTML of songsContainer  */
+    thisSearch.songsContainer.innerHTML = generatedHTML;
+    /* remove class hidden from songCounter  */
+    thisSearch.songsCounter.classList.remove(classList.hidden);
+  }
+
+  filterSongs() {
+    const thisSearch = this;
+
+    /* set array named filteredSongs which filter for each song from songs list */
+    thisSearch.filteredSongs = thisSearch.dataSongs.filter((song) => {
+      return (
+        /* get song.author name and lowercase it, then merge author name */
+        song.author
+          .toLowerCase()
+          .replaceAll(' ', '')
+          /* check if song.author name includes input value */
+          .includes(thisSearch.input.value.toLowerCase()) ||
+        /* and get song.title and lowercase it, then merge song title */
+        song.title
+          .toLowerCase()
+          .replaceAll(' ', '')
+          /* check if song.title includes input value */
+          .includes(thisSearch.input.value.toLowerCase())
+      );
     });
   }
 
@@ -278,6 +212,21 @@ export class Search {
       /* append category as a child of select form */
       thisSearch.categorySelector.appendChild(opt);
     });
+  }
+
+  generateSongCounterValidation(param) {
+    const thisSearch = this;
+    /* if filteredSongs array has one element */
+    if (param.length === 1) {
+      /* add song counter */
+      thisSearch.songsCounter.innerHTML =
+        'We have found ' + param.length + ' song...';
+      /* if filteredSongs array has less than one or more than one elements */
+    } else {
+      /* add song counter */
+      thisSearch.songsCounter.innerHTML =
+        'We have found ' + param.length + ' songs...';
+    }
   }
 
   initMusicPlayerWidget() {
