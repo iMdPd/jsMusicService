@@ -25,6 +25,7 @@ export const select = {
   searchPage: {
     button: '.btn',
     input: '.form-control',
+    select: '.form-select',
     alerts: '.search-wrapper p',
     songsContainer: '.search-wrapper .song-container',
     songsCounter: '.songs-counter',
