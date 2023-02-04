@@ -8,10 +8,18 @@
     display: block;
   }
 }
+
+/* home section styles */
+
 .categories-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+
+  #categories-list {
+    display: flex;
+  }
+
   p,
   li {
     margin: 0;
@@ -26,12 +34,15 @@
     list-style-type: none;
     padding: 0px;
   }
+
   li {
     cursor: pointer;
   }
+
   li:hover {
     color: $color-logo;
   }
+
   .selected {
     color: $color-logo;
   }
@@ -52,14 +63,13 @@
   align-items: center;
   justify-content: center;
   min-height: 650px;
-  height: 100vh;
   width: 100%;
 
   .subscribe__title {
     color: $color-main;
     position: absolute;
     width: 100%;
-    transform: translate(0%, -50vh);
+    transform: translateY(-326px);
 
     span {
       font-weight: $font-black;
