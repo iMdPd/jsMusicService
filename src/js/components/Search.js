@@ -83,6 +83,43 @@ export class Search {
           thisSearch.songsCounter.innerHTML =
             'We have found ' + thisSearch.dataSongs.length + ' songs...';
         }
+      } else if (
+        thisSearch.input.value &&
+        thisSearch.select.value == thisSearch.select.children[0].value
+      ) {
+        const filteredSongs = thisSearch.dataSongs.filter((song) => {
+          return (
+            song.author
+              .toLowerCase()
+              .replaceAll(' ', '')
+              .includes(thisSearch.input.value.toLowerCase()) ||
+            song.title
+              .toLowerCase()
+              .replaceAll(' ', '')
+              .includes(thisSearch.input.value.toLowerCase())
+          );
+        });
+
+        if (filteredSongs.length == 0) {
+          thisSearch.songsCounter.classList.add(classList.hidden);
+          thisSearch.alerts[1].classList.remove(classList.hidden);
+          thisSearch.songsContainer.innerHTML = '';
+          thisSearch.input.value = null;
+        } else {
+          thisSearch.songsCounter.classList.remove(classList.hidden);
+          thisSearch.alerts[1].classList.add(classList.hidden);
+          thisSearch.input.value = null;
+          if (filteredSongs.length <= 1) {
+            thisSearch.songsCounter.innerHTML =
+              'We have found ' + filteredSongs.length + ' song...';
+          } else {
+            thisSearch.songsCounter.innerHTML =
+              'We have found ' + filteredSongs.length + ' songs...';
+          }
+
+          const generatedHTML = templates.songWrapper(filteredSongs);
+          thisSearch.songsContainer.innerHTML = generatedHTML;
+        }
       }
 
       /* first validation without select form */
