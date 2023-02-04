@@ -120,6 +120,30 @@ export class Search {
           const generatedHTML = templates.songWrapper(filteredSongs);
           thisSearch.songsContainer.innerHTML = generatedHTML;
         }
+      } else if (
+        !thisSearch.input.value &&
+        thisSearch.select.value == thisSearch.select.value
+      ) {
+        thisSearch.songsCounter.classList.remove(classList.hidden);
+        thisSearch.alerts[1].classList.add(classList.hidden);
+        thisSearch.songsContainer.innerHTML = '';
+
+        const filteredSongsList = [];
+        for (let song of thisSearch.dataSongs) {
+          if (song.categories.includes(thisSearch.select.value)) {
+            filteredSongsList.push(song);
+          }
+        }
+        const generatedHTML = templates.songWrapper(filteredSongsList);
+        thisSearch.songsContainer.innerHTML = generatedHTML;
+
+        if (filteredSongsList.length <= 1) {
+          thisSearch.songsCounter.innerHTML =
+            'We have found ' + filteredSongsList.length + ' song...';
+        } else {
+          thisSearch.songsCounter.innerHTML =
+            'We have found ' + filteredSongsList.length + ' songs...';
+        }
       }
 
       /* first validation without select form */
