@@ -46,7 +46,7 @@ export const settings = {
     url:
       '//' +
       window.location.hostname +
-      (window.location.hostname == 'localhost' ? ':3132' : ''),
+      (window.location.hostname == 'localhost' ? ':3131' : ''),
     songs: 'songs',
   },
 };
