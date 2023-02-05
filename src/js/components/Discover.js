@@ -1,11 +1,11 @@
 import { classList, select, templates } from '../settings.js';
 
 export class Discover {
-  constructor(element, data) {
+  constructor(element, allSongs, favouriteCategories) {
     const thisDiscover = this;
 
     thisDiscover.render(element);
-    thisDiscover.songPicker(data);
+    thisDiscover.songPicker(allSongs, favouriteCategories);
   }
 
   render(element) {
@@ -18,20 +18,24 @@ export class Discover {
     thisDiscover.dom.wrapper.innerHTML = generatedHTML;
   }
 
-  songPicker(data) {
+  songPicker(allSongs, favouriteCategories) {
     const thisDiscover = this;
 
-    thisDiscover.data = data;
+    const navDiscoverLink = document.querySelector(select.nav.discoverLink);
+
+    thisDiscover.allSongs = allSongs;
+    thisDiscover.favouriteCategories = favouriteCategories;
+
     thisDiscover.songsContainer = document.querySelector(
       select.discoverPage.songsContainer
     );
 
-    const navDiscoverLink = document.querySelector(select.nav.discoverLink);
-
     navDiscoverLink.addEventListener('click', function () {
-      const generatedHTML = templates.songWrapper(thisDiscover.data);
+      console.log(thisDiscover.favouriteCategories);
+      const generatedHTML = templates.songWrapper(thisDiscover.allSongs);
 
       thisDiscover.songsContainer.innerHTML = generatedHTML;
+
       const discoverSongs = thisDiscover.dom.wrapper.querySelectorAll(
         select.discoverPage.songWrapper
       );
@@ -40,7 +44,7 @@ export class Discover {
         song.classList.add(classList.hidden);
       }
 
-      const songsArrayLength = thisDiscover.data.length;
+      const songsArrayLength = thisDiscover.allSongs.length;
 
       const randomNumber = Math.floor(Math.random() * songsArrayLength);
 

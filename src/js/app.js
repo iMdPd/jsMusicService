@@ -79,7 +79,7 @@ const app = {
         thisApp.initSearchPage();
         thisApp.initDiscoverPage();
         thisApp.initSong();
-        thisApp.mostListenedSongs();
+        thisApp.favouriteCategories();
       });
   },
 
@@ -89,7 +89,7 @@ const app = {
     new Songs(thisApp.data.songs);
   },
 
-  mostListenedSongs() {
+  favouriteCategories() {
     const thisApp = this;
     const allAudios = document.getElementsByTagName('audio');
 
@@ -175,11 +175,15 @@ const app = {
 
   initDiscoverPage() {
     const thisApp = this;
-
+    console.log(thisApp.matchingSongs);
     const discoverPageWrapper = document.querySelector(
       select.containerOf.discoverPage
     );
-    new Discover(discoverPageWrapper, thisApp.data.songs);
+    new Discover(
+      discoverPageWrapper,
+      thisApp.data.songs,
+      thisApp.matchingSongs
+    );
   },
 
   init: function () {
