@@ -62,7 +62,6 @@ const app = {
 
   initData: function () {
     const thisApp = this;
-
     thisApp.data = {};
 
     const url = settings.db.url + '/' + settings.db.songs;
@@ -123,16 +122,17 @@ const app = {
 
         const mostLikedCategory = getMax(listenedSongs);
         console.log(mostLikedCategory);
-
-        const matchingSongs = [];
-
+        thisApp.matchingSongs = [];
         for (let category of mostLikedCategory) {
           for (let song of thisApp.data.songs) {
-            if (song.categories.includes(category)) {
-              matchingSongs.push(song);
+            if (
+              song.categories.includes(category) &&
+              !thisApp.matchingSongs.includes(song)
+            ) {
+              thisApp.matchingSongs.push(song);
             }
 
-            console.log(matchingSongs);
+            console.log(thisApp.matchingSongs);
           }
         }
       });
