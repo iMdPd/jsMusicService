@@ -105,8 +105,9 @@ export class Search {
         }
       } else if (
         /* if name input has no value and category select has chosen option */
-        !thisSearch.input.value &&
-        thisSearch.categorySelector.value
+        thisSearch.input.value == '' &&
+        thisSearch.categorySelector.value !=
+          thisSearch.categorySelector.children[0].value
       ) {
         /* set new empty array named filteredSongs */
         const filteredSongs = [];
@@ -133,7 +134,8 @@ export class Search {
       } else if (
         /* if name input has value and category select has chosen option */
         thisSearch.input.value &&
-        thisSearch.categorySelector.value
+        thisSearch.categorySelector.value !=
+          thisSearch.categorySelector.children[0].value
       ) {
         thisSearch.filterSongs();
 

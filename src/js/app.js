@@ -80,6 +80,7 @@ const app = {
         thisApp.initSearchPage();
         thisApp.initDiscoverPage();
         thisApp.initSong();
+        thisApp.mostListenedSongs();
       });
   },
 
@@ -89,6 +90,54 @@ const app = {
     new Songs(thisApp.data.songs);
   },
 
+  mostListenedSongs() {
+    const thisApp = this;
+    const allAudios = document.getElementsByTagName('audio');
+
+    let listenedSongs = {};
+
+    for (let audio of allAudios) {
+      audio.addEventListener('play', function () {
+        const listenedAudio = this;
+
+        const categoriesOfListenedAudio =
+          listenedAudio.parentElement.parentElement.lastElementChild.firstElementChild.firstElementChild.innerHTML
+            .replace('Categories:', '')
+            .trim()
+            .slice(0, -1)
+            .split(',  ');
+
+        for (let category of categoriesOfListenedAudio) {
+          if (!listenedSongs[category]) {
+            listenedSongs[category] = 1;
+          } else {
+            listenedSongs[category]++;
+          }
+        }
+        console.log(listenedSongs);
+
+        const getMax = (object) => {
+          let max = Math.max(...Object.values(object));
+          return Object.keys(object).filter((key) => object[key] == max);
+        };
+
+        const mostLikedCategory = getMax(listenedSongs);
+        console.log(mostLikedCategory);
+
+        const matchingSongs = [];
+
+        for (let category of mostLikedCategory) {
+          for (let song of thisApp.data.songs) {
+            if (song.categories.includes(category)) {
+              matchingSongs.push(song);
+            }
+
+            console.log(matchingSongs);
+          }
+        }
+      });
+    }
+  },
   // uppercaseLetters: function () {
   //   const upperCaseWrapper = document.querySelectorAll('.uppercase');
 

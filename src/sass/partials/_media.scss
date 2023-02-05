@@ -18,13 +18,22 @@
   }
 
   h4 {
-    font-size: 3vw;
+    font-size: 2.5vw;
   }
 
   .main-nav {
     a {
       font-size: 3vw;
     }
+  }
+
+  .search-wrapper h3,
+  .discover-wrapper h3 {
+    font-size: 5vw;
+  }
+
+  .discover-wrapper p {
+    font-size: 2.5vw;
   }
 
   .categories-wrapper {
@@ -52,6 +61,11 @@
   h3 {
     font-size: 4vw;
     text-align: center;
+  }
+
+  .search-wrapper h3,
+  .discover-wrapper h3 {
+    font-size: 6vw;
   }
 
   .categories-wrapper {
@@ -109,6 +123,12 @@
 }
 
 @media (max-width: 360px) {
+  .main-nav {
+    a {
+      font-size: 4vw;
+    }
+  }
+
   .home-wrapper {
     display: flex;
     flex-wrap: wrap;
