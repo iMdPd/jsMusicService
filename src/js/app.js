@@ -23,7 +23,6 @@ const app = {
     }
 
     thisApp.activePage(pageMatchingHash);
-    // console.log(pageMatchingHash);
 
     for (let link of thisApp.navLinks) {
       link.addEventListener('click', function (event) {
@@ -65,7 +64,6 @@ const app = {
     thisApp.data = {};
 
     const url = settings.db.url + '/' + settings.db.songs;
-    // console.log(url);
 
     fetch(url)
       .then(function (rawResponse) {
@@ -76,10 +74,10 @@ const app = {
           return a.ranking - b.ranking;
         });
         thisApp.data.songs = parsedResponse;
-        thisApp.initSearchPage();
-        thisApp.initDiscoverPage();
         thisApp.initSong();
-        thisApp.favouriteCategories();
+        thisApp.initSearchPage();
+        thisApp.mostListenedSongs();
+        thisApp.initDiscoverPage();
       });
   },
 
@@ -89,55 +87,72 @@ const app = {
     new Songs(thisApp.data.songs);
   },
 
-  favouriteCategories() {
+  mostListenedSongs() {
     const thisApp = this;
+    /* select all <audio> elements */
     const allAudios = document.getElementsByTagName('audio');
-
+    /* set globally listenedSongs */
     let listenedSongs = {};
+    /* set globally matchingSongs */
+    thisApp.matchingSongs = [];
 
+    /* for every audio of allAudios */
     for (let audio of allAudios) {
+      /* add event listener 'play' on every audio */
       audio.addEventListener('play', function () {
-        const listenedAudio = this;
+        const playedAudio = this;
 
-        const categoriesOfListenedAudio =
-          listenedAudio.parentElement.parentElement.lastElementChild.firstElementChild.firstElementChild.innerHTML
+        /* set variable named categoriesOfPlayedAudio and get categories from playedAudio  */
+        const categoriesOfPlayedAudio =
+          playedAudio.parentElement.parentElement.lastElementChild.firstElementChild.firstElementChild.innerHTML
             .replace('Categories:', '')
             .trim()
             .slice(0, -1)
             .split(',  ');
 
-        for (let category of categoriesOfListenedAudio) {
+        /* for every category of categoriesOfPlayedAudio */
+        for (let category of categoriesOfPlayedAudio) {
+          /* if it doesn't exist in listenedSongs object */
           if (!listenedSongs[category]) {
+            /* set it's value to 1 */
             listenedSongs[category] = 1;
           } else {
+            /* increase it's value by 1 */
             listenedSongs[category]++;
           }
         }
-        console.log(listenedSongs);
 
+        /* set nev variable with function named getMax and param named object */
         const getMax = (object) => {
+          /* select the category with the highest value */
           let max = Math.max(...Object.values(object));
           return Object.keys(object).filter((key) => object[key] == max);
         };
 
+        /* set variable mostLikedCategory witch render most played category */
         const mostLikedCategory = getMax(listenedSongs);
-        console.log(mostLikedCategory);
-        thisApp.matchingSongs = [];
-        for (let category of mostLikedCategory) {
-          for (let song of thisApp.data.songs) {
+
+        /* for every loop reset matchingSongs array to 0  */
+        thisApp.matchingSongs.length = 0;
+
+        /* for every object named song of array named thisApp.data.songs*/
+        for (let song of thisApp.data.songs) {
+          /* for every category of array named mostLikedCategory */
+          for (let category of mostLikedCategory) {
             if (
+              /* song.categories includes category from mostLikedCategory and thisApp.matchingSongs doesn't includes song object */
               song.categories.includes(category) &&
               !thisApp.matchingSongs.includes(song)
             ) {
+              /* push this song to thisApp.matchingSongs array */
               thisApp.matchingSongs.push(song);
             }
-
-            console.log(thisApp.matchingSongs);
           }
         }
       });
     }
   },
+
   // uppercaseLetters: function () {
   //   const upperCaseWrapper = document.querySelectorAll('.uppercase');
 
@@ -175,11 +190,12 @@ const app = {
 
   initDiscoverPage() {
     const thisApp = this;
-    console.log(thisApp.matchingSongs);
+
     const discoverPageWrapper = document.querySelector(
       select.containerOf.discoverPage
     );
-    new Discover(
+
+    thisApp.instance = new Discover(
       discoverPageWrapper,
       thisApp.data.songs,
       thisApp.matchingSongs
