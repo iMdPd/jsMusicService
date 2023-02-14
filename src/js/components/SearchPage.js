@@ -1,20 +1,19 @@
 import { templates, classList, select } from '../settings.js';
 
-export class Search {
+export class SearchPage {
   constructor(element, data) {
     const thisSearch = this;
 
     thisSearch.render(element);
     thisSearch.getData(data);
     thisSearch.filterElements();
-    thisSearch.setDefaultValues();
+    thisSearch.setDefaultPage();
     thisSearch.generateCategorySelect();
   }
 
   render(element) {
-    const thisSearch = this;
-
-    const generatedHTML = templates.searchPage();
+    const thisSearch = this,
+      generatedHTML = templates.searchPage();
 
     thisSearch.dom = {};
     thisSearch.dom.wrapper = element;
@@ -46,10 +45,10 @@ export class Search {
     );
   }
 
-  setDefaultValues() {
-    const thisSearch = this;
+  setDefaultPage() {
+    const thisSearch = this,
+      mutationObserver = new MutationObserver(callback);
 
-    /* logic teaken from https://www.seanmcp.com/articles/event-listener-for-class-change/ */
     function callback(mutationsList) {
       mutationsList.forEach((mutation) => {
         if (mutation.attributeName === 'class') {
@@ -64,8 +63,6 @@ export class Search {
         }
       });
     }
-
-    const mutationObserver = new MutationObserver(callback);
 
     mutationObserver.observe(thisSearch.navSearchLink, { attributes: true });
   }

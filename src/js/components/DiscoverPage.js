@@ -1,6 +1,6 @@
 import { classList, select, templates } from '../settings.js';
 
-export class Discover {
+export class DiscoverPage {
   constructor(element, allSongs, favouriteSongs) {
     const thisDiscover = this;
 
@@ -9,12 +9,11 @@ export class Discover {
   }
 
   render(element) {
-    const thisDiscover = this;
+    const thisDiscover = this,
+      generatedHTML = templates.discoverPage();
 
-    const generatedHTML = templates.discoverPage();
     thisDiscover.dom = {};
     thisDiscover.dom.wrapper = element;
-
     thisDiscover.dom.wrapper.innerHTML = generatedHTML;
   }
 
@@ -22,6 +21,7 @@ export class Discover {
     const thisDiscover = this;
 
     thisDiscover.favouriteSongs = favouriteSongs;
+
     thisDiscover.allSongs = allSongs;
 
     thisDiscover.songsContainer = document.querySelector(
@@ -31,6 +31,7 @@ export class Discover {
     const navDiscoverLink = document.querySelector(select.nav.discoverLink);
 
     navDiscoverLink.addEventListener('click', function () {
+      console.log(thisDiscover.favouriteSongs);
       if (thisDiscover.favouriteSongs.length == 0) {
         thisDiscover.generateRandomSong(thisDiscover.allSongs);
       } else {

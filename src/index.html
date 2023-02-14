@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Music Service</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -79,7 +78,8 @@
           </div>
           <div class='row song-description'>
             <div class='col-7 d-flex justify-content-start'>
-              <p>Categories: {{#each categories}} {{this}}, {{/each}}</p>
+              <p class='categories'>Categories:
+                <span>{{#each categories}} {{this}}, {{/each}}</span></p>
             </div>
             <div class='col-5 d-flex justify-content-end'>
               <p>#{{ranking}} in the ranking</p>

@@ -1,17 +1,42 @@
 import { select, classList, settings } from '../js/settings.js';
-import { Songs } from './components/Songs.js';
-import { Subscribe } from './components/Subscribe.js';
-import { Search } from './components/Search.js';
-import { Discover } from './components/Discover.js';
+import { Song } from './components/Song.js';
+import { SubscribeSection } from './components/SubscribeSection.js';
+import { SearchPage } from './components/SearchPage.js';
+import { DiscoverPage } from './components/DiscoverPage.js';
 
 const app = {
-  initPages: function () {
+  getData: function () {
     const thisApp = this;
+    thisApp.matchingSongs = [];
+
+    thisApp.subscribeWrapper = document.querySelector(
+      select.containerOf.subscribe
+    );
 
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
+    thisApp.categoriesList = document.getElementById('categories-list');
+    thisApp.homePageContainer = document.querySelector(
+      select.containerOf.homePage
+    );
+    thisApp.searchPageWrapper = document.querySelector(
+      select.containerOf.searchPage
+    );
+    thisApp.discoverPageWrapper = document.querySelector(
+      select.containerOf.discoverPage
+    );
+    thisApp.allAudios = document.getElementsByTagName('audio');
+    thisApp.upperCaseWrapper = document.querySelectorAll('.uppercase');
+  },
 
-    const idFromHash = window.location.hash.replace('#/', '');
+  initSubscribeSection: function () {
+    const thisApp = this;
+    new SubscribeSection(thisApp.subscribeWrapper);
+  },
+
+  initPages: function () {
+    const thisApp = this,
+      idFromHash = window.location.hash.replace('#/', '');
 
     let pageMatchingHash = thisApp.pages[0].id;
 
@@ -31,12 +56,19 @@ const app = {
         thisApp.activeLink(clickedElement);
       });
     }
+
+    thisApp.subscribeLink = document.querySelector(select.subscribe.link);
+
+    thisApp.subscribeLink.addEventListener('click', function (event) {
+      event.preventDefault();
+      const clickedElement = this;
+      thisApp.activeLink(clickedElement);
+    });
   },
 
   activeLink: function (clickedElement) {
-    const thisApp = this;
-
-    const id = clickedElement.getAttribute('href').replace('#', '');
+    const thisApp = this,
+      id = clickedElement.getAttribute('href').replace('#', '');
 
     thisApp.activePage(id);
 
@@ -46,11 +78,10 @@ const app = {
   activePage: function (pageId) {
     const thisApp = this;
 
-    /*toggle class "active" to matching pages, remove form non-matching */
     for (let page of thisApp.pages) {
       page.classList.toggle(classList.active, page.id == pageId);
     }
-    /*toggle class "active" to matching links, remove form non-matching */
+
     for (let link of thisApp.navLinks) {
       link.classList.toggle(
         classList.active,
@@ -60,10 +91,10 @@ const app = {
   },
 
   initData: function () {
-    const thisApp = this;
-    thisApp.data = {};
+    const thisApp = this,
+      url = settings.db.url + '/' + settings.db.songs;
 
-    const url = settings.db.url + '/' + settings.db.songs;
+    thisApp.data = {};
 
     fetch(url)
       .then(function (rawResponse) {
@@ -75,139 +106,165 @@ const app = {
         });
         thisApp.data.songs = parsedResponse;
         thisApp.initSong();
+        thisApp.generateListOfCategories();
         thisApp.initSearchPage();
-        thisApp.mostListenedSongs();
+        thisApp.getFavouriteMusicGenres();
         thisApp.initDiscoverPage();
       });
+  },
+
+  generateListOfCategories() {
+    const thisApp = this,
+      musicCategories = [];
+
+    for (let song of thisApp.data.songs) {
+      for (let category of song.categories) {
+        if (!musicCategories.includes(category)) {
+          musicCategories.push(category);
+        }
+      }
+    }
+
+    musicCategories.forEach((genre) => {
+      let li = document.createElement('li');
+      li.innerText = genre;
+      thisApp.categoriesList.appendChild(li);
+    });
+
+    thisApp.filterSongsByCategory();
+  },
+
+  filterSongsByCategory() {
+    const thisApp = this,
+      selectedCategories = [];
+
+    thisApp.categoriesList.addEventListener('click', function (event) {
+      const clickedCategory = event.target,
+        songWrappers = thisApp.homePageContainer.children,
+        addCategory = function () {
+          selectedCategories.push(clickedCategory.innerHTML);
+        },
+        removeCategory = function () {
+          const removeCategory = selectedCategories.indexOf(
+            clickedCategory.innerHTML
+          );
+
+          selectedCategories.splice(removeCategory, 1);
+        };
+
+      clickedCategory.classList.toggle(classList.selected);
+
+      !selectedCategories.includes(clickedCategory.innerHTML)
+        ? addCategory()
+        : removeCategory();
+
+      for (let songWrapper of songWrappers) {
+        let shouldBeHidden = false;
+
+        const songWrapperCategories = songWrapper.querySelector(
+          select.containerOf.categories
+        ).innerText;
+
+        for (let category of selectedCategories) {
+          if (!songWrapperCategories.includes(category)) {
+            shouldBeHidden = true;
+            break;
+          }
+        }
+
+        shouldBeHidden
+          ? songWrapper.classList.add(classList.hidden)
+          : songWrapper.classList.remove(classList.hidden);
+      }
+    });
   },
 
   initSong: function () {
     const thisApp = this;
 
-    new Songs(thisApp.data.songs);
+    new Song(thisApp.data.songs);
   },
 
-  mostListenedSongs() {
+  getFavouriteMusicGenres() {
     const thisApp = this;
-    /* select all <audio> elements */
-    const allAudios = document.getElementsByTagName('audio');
-    /* set globally listenedSongs */
     let listenedSongs = {};
-    /* set globally matchingSongs */
-    thisApp.matchingSongs = [];
 
-    /* for every audio of allAudios */
-    for (let audio of allAudios) {
-      /* add event listener 'play' on every audio */
+    for (let audio of thisApp.allAudios) {
       audio.addEventListener('play', function () {
-        const playedAudio = this;
+        const playedAudio = this,
+          playedAudioCategories =
+            playedAudio.parentElement.parentElement.lastElementChild.firstElementChild.firstElementChild.innerText
+              .replace('Categories:', '')
+              .trim()
+              .slice(0, -1)
+              .split(', ');
 
-        /* set variable named categoriesOfPlayedAudio and get categories from playedAudio  */
-        const categoriesOfPlayedAudio =
-          playedAudio.parentElement.parentElement.lastElementChild.firstElementChild.firstElementChild.innerHTML
-            .replace('Categories:', '')
-            .trim()
-            .slice(0, -1)
-            .split(',  ');
-
-        /* for every category of categoriesOfPlayedAudio */
-        for (let category of categoriesOfPlayedAudio) {
-          /* if it doesn't exist in listenedSongs object */
-          if (!listenedSongs[category]) {
-            /* set it's value to 1 */
-            listenedSongs[category] = 1;
-          } else {
-            /* increase it's value by 1 */
-            listenedSongs[category]++;
-          }
+        for (let category of playedAudioCategories) {
+          !listenedSongs[category]
+            ? (listenedSongs[category] = 1)
+            : listenedSongs[category]++;
         }
+        // console.log(listenedSongs);
 
-        /* set nev variable with function named getMax and param named object */
-        const getMax = (object) => {
-          /* select the category with the highest value */
+        const getMaxCategory = (object) => {
           let max = Math.max(...Object.values(object));
           return Object.keys(object).filter((key) => object[key] == max);
         };
 
-        /* set variable mostLikedCategory witch render most played category */
-        const mostLikedCategory = getMax(listenedSongs);
+        thisApp.favouriteMusicGenres = getMaxCategory(listenedSongs);
 
-        /* for every loop reset matchingSongs array to 0  */
-        thisApp.matchingSongs.length = 0;
-
-        /* for every object named song of array named thisApp.data.songs*/
-        for (let song of thisApp.data.songs) {
-          /* for every category of array named mostLikedCategory */
-          for (let category of mostLikedCategory) {
-            if (
-              /* song.categories includes category from mostLikedCategory and thisApp.matchingSongs doesn't includes song object */
-              song.categories.includes(category) &&
-              !thisApp.matchingSongs.includes(song)
-            ) {
-              /* push this song to thisApp.matchingSongs array */
-              thisApp.matchingSongs.push(song);
-            }
-          }
-        }
+        thisApp.getMatchingSongs();
       });
     }
   },
 
-  // uppercaseLetters: function () {
-  //   const upperCaseWrapper = document.querySelectorAll('.uppercase');
-
-  //   for (let i = 0; i < upperCaseWrapper.length; i++) {
-  //     upperCaseWrapper[i].innerHTML =
-  //       upperCaseWrapper[i].innerHTML.uppercaseLetters();
-  //   }
-  // },
-
-  initSubscribe: function () {
+  getMatchingSongs: function () {
     const thisApp = this;
-    const subscribeWrapper = document.querySelector(
-      select.containerOf.subscribe
-    );
+    thisApp.matchingSongs.length = 0;
 
-    new Subscribe(subscribeWrapper);
-
-    thisApp.subscribeLink = document.querySelector(select.subscribe.link);
-    // console.log('subscribeLink', thisApp.subscribeLink);
-
-    thisApp.subscribeLink.addEventListener('click', function (event) {
-      event.preventDefault();
-      const clickedElement = this;
-      thisApp.activeLink(clickedElement);
-    });
+    for (let song of thisApp.data.songs) {
+      for (let category of thisApp.favouriteMusicGenres) {
+        if (
+          song.categories.includes(category) &&
+          !thisApp.matchingSongs.includes(song)
+        ) {
+          thisApp.matchingSongs.push(song);
+        }
+      }
+    }
   },
 
   initSearchPage: function () {
     const thisApp = this;
-    const searchPageWrapper = document.querySelector(
-      select.containerOf.searchPage
-    );
-    new Search(searchPageWrapper, thisApp.data.songs);
+
+    new SearchPage(thisApp.searchPageWrapper, thisApp.data.songs);
   },
 
   initDiscoverPage() {
     const thisApp = this;
 
-    const discoverPageWrapper = document.querySelector(
-      select.containerOf.discoverPage
-    );
-
-    thisApp.instance = new Discover(
-      discoverPageWrapper,
+    thisApp.instance = new DiscoverPage(
+      thisApp.discoverPageWrapper,
       thisApp.data.songs,
       thisApp.matchingSongs
     );
   },
 
+  // uppercaseLetters: function () {
+  //   const thisApp = this;
+
+  //   for (let i = 0; i < thisApp.upperCaseWrapper.length; i++) {
+  //     thisApp.upperCaseWrapper[i].innerHTML =
+  //       thisApp.upperCaseWrapper[i].innerHTML.uppercaseLetters();
+  //   }
+  // },
+
   init: function () {
     const thisApp = this;
     console.log('*** App starting ***');
-
+    thisApp.getData();
+    thisApp.initSubscribeSection();
     thisApp.initPages();
-    thisApp.initSubscribe();
     thisApp.initData();
     // thisApp.uppercaseLetters();
   },

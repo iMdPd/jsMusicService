@@ -1,6 +1,6 @@
 import { templates } from '../settings.js';
 
-export class Subscribe {
+export class SubscribeSection {
   constructor(element) {
     const thisSubscribe = this;
 
@@ -14,7 +14,6 @@ export class Subscribe {
     thisSubscribe.dom.wrapper = element;
 
     const generatedHTML = templates.subscribe();
-    // console.log(generatedHTML);
     thisSubscribe.dom.wrapper.innerHTML = generatedHTML;
   }
 }

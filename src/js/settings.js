@@ -7,6 +7,7 @@ export const select = {
     subscribe: '.subscribe__wrapper',
     songs: '.song-container',
     songPlayer: '.song-player',
+    categories: '.categories span',
   },
   templateOf: {
     songWrapper: '#template-song-wrapper',
@@ -39,6 +40,7 @@ export const select = {
 export const classList = {
   active: 'active',
   hidden: 'hidden',
+  selected: 'selected',
 };
 
 export const settings = {
