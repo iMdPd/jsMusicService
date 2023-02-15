@@ -29,11 +29,13 @@ export const select = {
     select: '.form-select',
     alerts: '.search-wrapper p',
     songsContainer: '.search-wrapper .song-container',
+    songPlayer: '.search-wrapper .song-player',
     songsCounter: '.songs-counter',
   },
   discoverPage: {
     songsContainer: '.discover-wrapper .song-container',
     songWrapper: '.discover-wrapper .song-wrapper',
+    songPlayer: '.discover-wrapper .song-player',
   },
 };
 

@@ -1,11 +1,12 @@
-import { classList, select, templates } from '../settings.js';
+import { select, templates } from '../settings.js';
 
 export class DiscoverPage {
   constructor(element, allSongs, favouriteSongs) {
     const thisDiscover = this;
 
     thisDiscover.render(element);
-    thisDiscover.randomSongPicker(allSongs, favouriteSongs);
+    thisDiscover.discoverSong(allSongs, favouriteSongs);
+    thisDiscover.randomSongPicker(allSongs);
   }
 
   render(element) {
@@ -17,59 +18,42 @@ export class DiscoverPage {
     thisDiscover.dom.wrapper.innerHTML = generatedHTML;
   }
 
-  randomSongPicker(allSongs, favouriteSongs) {
-    const thisDiscover = this;
-
-    thisDiscover.favouriteSongs = favouriteSongs;
-
-    thisDiscover.allSongs = allSongs;
-
-    thisDiscover.songsContainer = document.querySelector(
-      select.discoverPage.songsContainer
-    );
-
-    const navDiscoverLink = document.querySelector(select.nav.discoverLink);
+  discoverSong(allSongs, favouriteSongs) {
+    const thisDiscover = this,
+      navDiscoverLink = document.querySelector(select.nav.discoverLink);
 
     navDiscoverLink.addEventListener('click', function () {
-      console.log(thisDiscover.favouriteSongs);
-      if (thisDiscover.favouriteSongs.length == 0) {
-        thisDiscover.generateRandomSong(thisDiscover.allSongs);
-      } else {
-        thisDiscover.generateRandomSong(thisDiscover.favouriteSongs);
-      }
-
-      thisDiscover.initMusicPlayerWidget();
+      !favouriteSongs.length
+        ? thisDiscover.randomSongPicker(allSongs)
+        : thisDiscover.randomSongPicker(favouriteSongs);
     });
   }
 
-  generateRandomSong(songsList) {
-    const thisDiscover = this;
-    const generatedHTML = templates.songWrapper(songsList);
+  randomSongPicker(songsList) {
+    const thisDiscover = this,
+      randomNumber = Math.floor(Math.random() * songsList.length),
+      randomSong = songsList.slice(randomNumber, randomNumber + 1);
 
-    thisDiscover.songsContainer.innerHTML = generatedHTML;
+    thisDiscover.generateMusicPlayer(randomSong);
+  }
 
-    const discoverSongs = thisDiscover.dom.wrapper.querySelectorAll(
-      select.discoverPage.songWrapper
-    );
+  generateMusicPlayer(filters) {
+    const thisDiscover = this,
+      songsContainer = document.querySelector(
+        select.discoverPage.songsContainer
+      ),
+      generatedHTML = templates.songWrapper(filters);
 
-    for (let song of discoverSongs) {
-      song.classList.add(classList.hidden);
-    }
+    songsContainer.innerHTML = generatedHTML;
 
-    const songsArrayLength = songsList.length;
-
-    const randomNumber = Math.floor(Math.random() * songsArrayLength);
-
-    const chosenSong = thisDiscover.songsContainer.children[randomNumber];
-
-    chosenSong.classList.remove(classList.hidden);
+    thisDiscover.initMusicPlayerWidget();
   }
 
   initMusicPlayerWidget() {
     /* eslint-disable */
     GreenAudioPlayer.init({
       /* eslint-enable */
-      selector: '.discover-wrapper .song-player',
+      selector: select.discoverPage.songPlayer,
       stopOthersOnPlay: true,
     });
   }

@@ -9,12 +9,11 @@ export class Song {
 
   render(data) {
     const thisSong = this,
-      generatedHTML = templates.songWrapper(data);
+      generatedHTML = templates.songWrapper(data),
+      homePageContainer = document.querySelector(select.containerOf.homePage);
 
-    thisSong.homePageContainer = document.querySelector(
-      select.containerOf.homePage
-    );
-    thisSong.homePageContainer.innerHTML = generatedHTML;
+    homePageContainer.innerHTML = generatedHTML;
+
     thisSong.initMusicPlayerWidget();
   }
 
