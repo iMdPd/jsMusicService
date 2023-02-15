@@ -168,19 +168,16 @@ export class SearchPage {
   }
 
   filterSongsByInput() {
-    const thisSearch = this;
+    const thisSearch = this,
+      compareContent = function (content) {
+        return content
+          .toLowerCase()
+          .replaceAll(' ', '')
+          .includes(thisSearch.input.value.toLowerCase());
+      };
 
     thisSearch.filteredSongs = thisSearch.dataSongs.filter((song) => {
-      return (
-        song.author
-          .toLowerCase()
-          .replaceAll(' ', '')
-          .includes(thisSearch.input.value.toLowerCase()) ||
-        song.title
-          .toLowerCase()
-          .replaceAll(' ', '')
-          .includes(thisSearch.input.value.toLowerCase())
-      );
+      return compareContent(song.author) || compareContent(song.title);
     });
   }
 
