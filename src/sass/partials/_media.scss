@@ -14,11 +14,11 @@
   }
 
   h3 {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
 
   h4 {
-    font-size: 2.5vw;
+    font-size: 3vw;
   }
 
   .main-nav {
@@ -39,8 +39,12 @@
   .categories-wrapper {
     p,
     li {
-      font-size: 1.75vw;
+      font-size: 2vw;
     }
+  }
+
+  .search-wrapper .songs-counter {
+    font-size: 2.5vw;
   }
 
   .album-wrapper {
@@ -58,26 +62,26 @@
 }
 
 @media (max-width: 550px) {
+  h2 {
+    font-size: 7vw;
+  }
+
   h3 {
     font-size: 4vw;
     text-align: center;
   }
 
+  h4 {
+    font-size: 3.5vw;
+  }
+
+  .main-nav a {
+    font-size: 4vw;
+  }
+
   .search-wrapper h3,
   .discover-wrapper h3 {
     font-size: 6vw;
-  }
-
-  .categories-wrapper {
-    p,
-    li {
-      font-size: 1.75vw;
-    }
-  }
-
-  .album-wrapper .description-box p {
-    font-size: 4vw;
-    text-align: center;
   }
 
   .song-description p {
@@ -92,18 +96,38 @@
     scale: 0.8;
   }
 
-  .author-album .artist-picture {
-    scale: 0.7;
+  .album-wrapper .description-box {
+    padding: 20px 0 30px 0;
+
+    p {
+      font-size: 4vw;
+      text-align: center;
+    }
   }
 
   .album-wrapper .author-box {
     display: block;
   }
 
+  .author-album {
+    padding: 0px;
+  }
+
+  .search-wrapper .songs-counter {
+    font-size: 3.5vw;
+  }
+
+  .categories-wrapper {
+    p,
+    li {
+      font-size: 2.5vw;
+    }
+  }
   .author-name {
     z-index: 1;
-    bottom: -10px;
-    right: 0px;
+    bottom: -50px;
+    right: -10px;
+    line-height: 0.8;
     left: 0px;
     width: inherit;
 
@@ -120,26 +144,80 @@
       }
     }
   }
+
+  .album-wrapper .description-box {
+    padding: 60px 0 30px 0;
+  }
+
+  .discover-wrapper p {
+    font-size: 3vw;
+  }
 }
 
 @media (max-width: 360px) {
-  .main-nav {
-    a {
-      font-size: 4vw;
-    }
+  .main-nav a {
+    font-size: 5vw;
+  }
+
+  h2 {
+    font-size: 8vw;
+  }
+
+  h4 {
+    font-size: 5vw;
   }
 
   .home-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: min-content;
   }
 
   .categories-wrapper {
+    display: block;
+
+    #categories-list {
+      display: block;
+    }
+    ul {
+      margin: 0;
+    }
     p,
     li {
-      font-size: 2vw;
+      display: block;
+      font-size: 4vw;
     }
+  }
+
+  .author-name .firstname,
+  .author-name .lastname {
+    font-size: 4em;
+  }
+
+  .author-album .artist-picture {
+    max-width: 300px;
+    width: 100%;
+  }
+
+  .album-wrapper .description-box {
+    padding: 90px 0 30px 0;
+  }
+
+  .author-name {
+    bottom: -60px;
+    right: -10px;
+    line-height: 1;
+  }
+
+  .search-wrapper .songs-counter {
+    font-size: 5vw;
+  }
+
+  .page-footer p {
+    font-size: 3vw;
+  }
+
+  .discover-wrapper p {
+    font-size: 5vw;
   }
 }

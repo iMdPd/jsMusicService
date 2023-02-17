@@ -21,7 +21,7 @@ export class Song {
     /* eslint-disable */
     GreenAudioPlayer.init({
       /* eslint-enable */
-      selector: '.home-wrapper  .song-player',
+      selector: select.homePage.songPlayer,
       stopOthersOnPlay: true,
     });
   }

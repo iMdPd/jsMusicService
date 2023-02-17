@@ -12,10 +12,15 @@ const app = {
     thisApp.subscribeWrapper = document.querySelector(
       select.containerOf.subscribe
     );
-
+    thisApp.noResultAllert = document.querySelector(
+      select.containerOf.noResultAlert
+    );
+    console.log(thisApp.noResultAllert);
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
-    thisApp.categoriesList = document.getElementById('categories-list');
+    thisApp.categoriesList = document.getElementById(
+      select.containerOf.categoriesList
+    );
     thisApp.homePageContainer = document.querySelector(
       select.containerOf.homePage
     );
@@ -26,7 +31,7 @@ const app = {
       select.containerOf.discoverPage
     );
     thisApp.allAudios = document.getElementsByTagName('audio');
-    thisApp.upperCaseWrapper = document.querySelectorAll('.uppercase');
+    thisApp.upperCaseWrapper = document.querySelectorAll(classList.uppercase);
   },
 
   initSubscribeSection: function () {
@@ -148,7 +153,6 @@ const app = {
           const removeCategory = selectedCategories.indexOf(
             clickedCategory.innerHTML
           );
-
           selectedCategories.splice(removeCategory, 1);
         };
 
@@ -176,7 +180,22 @@ const app = {
           ? songWrapper.classList.add(classList.hidden)
           : songWrapper.classList.remove(classList.hidden);
       }
+      thisApp.showNoResultAllert();
     });
+  },
+
+  showNoResultAllert: function () {
+    const thisApp = this,
+      songWrappersArray = Array.from(thisApp.homePageContainer.children),
+      hasHiddenClass = songWrappersArray.filter((element) =>
+        element.classList.contains(classList.hidden)
+      );
+
+    if (songWrappersArray.length === hasHiddenClass.length) {
+      thisApp.noResultAllert.classList.remove(classList.hidden);
+    } else {
+      thisApp.noResultAllert.classList.add(classList.hidden);
+    }
   },
 
   initSong: function () {

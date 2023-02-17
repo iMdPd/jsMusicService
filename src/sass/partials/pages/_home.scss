@@ -11,6 +11,12 @@
 
 /* home section styles */
 
+.no-result {
+  color: $color-logo;
+  letter-spacing: $letter-spacing;
+  font-size: 12px;
+}
+
 .categories-wrapper {
   display: flex;
   justify-content: center;
@@ -48,8 +54,12 @@
   }
 }
 
-.song-description p {
-  padding: 0 20px;
+.song-description {
+  width: 100%;
+
+  p {
+    padding: 0 20px;
+  }
 }
 
 /* subscribe section styles */

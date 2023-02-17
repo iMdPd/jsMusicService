@@ -8,6 +8,8 @@ export const select = {
     songs: '.song-container',
     songPlayer: '.song-player',
     categories: '.categories span',
+    noResultAlert: '.no-result',
+    categoriesList: 'categories-list',
   },
   templateOf: {
     songWrapper: '#template-song-wrapper',
@@ -22,6 +24,9 @@ export const select = {
   },
   subscribe: {
     link: '.button-box a',
+  },
+  homePage: {
+    songPlayer: '.home-wrapper .song-player',
   },
   searchPage: {
     button: '.btn',
@@ -43,6 +48,7 @@ export const classList = {
   active: 'active',
   hidden: 'hidden',
   selected: 'selected',
+  uppercase: '.uppercase',
 };
 
 export const settings = {
