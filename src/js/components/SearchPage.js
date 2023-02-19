@@ -71,89 +71,90 @@ export class SearchPage {
     const thisSearch = this;
 
     thisSearch.button.addEventListener('click', function () {
-      // const filters = [
-      //   { param: thisSearch.input.value.toLowerCase(), type: 'text' },
-      //   { param: thisSearch.categorySelector.value, type: 'category' },
-      // ];
-      // console.log('filters', filters);
+      const filters = [
+        { param: thisSearch.input.value.toLowerCase(), type: 'text' },
+        { param: thisSearch.categorySelector.value, type: 'category' },
+      ];
+      console.log('filters', filters);
 
-      // function filterSongsByInput(songs, filters) {
-      //   function filterByText(param, songs) {
-      //     return songs.filter(
-      //       (s) =>
-      //         s.title.toLowerCase().replaceAll(' ', '').includes(param) ||
-      //         s.author.toLowerCase().replaceAll(' ', '').includes(param)
-      //     );
-      //   }
+      function filterSongsByInput(songs, filters) {
+        function filterByText(param, songs) {
+          return songs.filter(
+            (s) =>
+              s.title.toLowerCase().replaceAll(' ', '').includes(param) ||
+              s.author.toLowerCase().replaceAll(' ', '').includes(param)
+          );
+        }
 
-      //   function filterByCategory(param, songs) {
-      //     return songs.filter((s) => s.category === param);
-      //   }
+        function filterByCategory(param, songs) {
+          return !param
+            ? songs
+            : songs.filter((s) => s.categories.includes(param));
+        }
 
-      //   const filterBuilder = {
-      //     category: filterByCategory,
-      //     text: filterByText,
-      //   };
+        const filterBuilder = {
+          category: filterByCategory,
+          text: filterByText,
+        };
 
-      //   return filters.reduce((acc, filter) => {
-      //     return filterBuilder[filter.type](filter.param, acc);
-      //   }, songs);
-      // }
+        return filters.reduce((acc, filter) => {
+          return filterBuilder[filter.type](filter.param, acc);
+        }, songs);
+      }
 
-      // const songs = thisSearch.dataSongs;
-      // console.log('songs', songs);
+      const songs = thisSearch.dataSongs;
+      console.log('songs', songs);
 
-      // thisSearch.generateMusicPlayer(filterSongsByInput(songs, filters));
-      // thisSearch.displayMatchingSongsNumber(filterSongsByInput(songs, filters));
-      // console.log(filterSongsByInput(songs, filters));
+      thisSearch.generateMusicPlayer(filterSongsByInput(songs, filters));
+      thisSearch.displayMatchingSongsNumber(filterSongsByInput(songs, filters));
 
       /* ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
-      if (
-        !thisSearch.input.value &&
-        thisSearch.categorySelector.value ==
-          thisSearch.categorySelector.children[0].value
-      ) {
-        thisSearch.generateMusicPlayer(thisSearch.dataSongs);
-        thisSearch.displayMatchingSongsNumber(thisSearch.dataSongs);
-      } else if (
-        thisSearch.input.value &&
-        thisSearch.categorySelector.value ==
-          thisSearch.categorySelector.children[0].value
-      ) {
-        thisSearch.filterSongsByInput();
+      // if (
+      //   !thisSearch.input.value &&
+      //   thisSearch.categorySelector.value ==
+      //     thisSearch.categorySelector.children[0].value
+      // ) {
+      //   thisSearch.generateMusicPlayer(thisSearch.dataSongs);
+      //   thisSearch.displayMatchingSongsNumber(thisSearch.dataSongs);
+      // } else if (
+      //   thisSearch.input.value &&
+      //   thisSearch.categorySelector.value ==
+      //     thisSearch.categorySelector.children[0].value
+      // ) {
+      //   thisSearch.filterSongsByInput();
 
-        thisSearch.generateMusicPlayer(thisSearch.filteredSongs);
-        thisSearch.displayMatchingSongsNumber(thisSearch.filteredSongs);
-      } else if (
-        !thisSearch.input.value &&
-        thisSearch.categorySelector.value !=
-          thisSearch.categorySelector.children[0].value
-      ) {
-        const filteredSongs = [];
-        for (let song of thisSearch.dataSongs) {
-          if (song.categories.includes(thisSearch.categorySelector.value)) {
-            filteredSongs.push(song);
-          }
-        }
-        thisSearch.generateMusicPlayer(filteredSongs);
-        thisSearch.displayMatchingSongsNumber(filteredSongs);
-      } else if (
-        thisSearch.input.value &&
-        thisSearch.categorySelector.value !=
-          thisSearch.categorySelector.children[0].value
-      ) {
-        thisSearch.filterSongsByInput();
+      //   thisSearch.generateMusicPlayer(thisSearch.filteredSongs);
+      //   thisSearch.displayMatchingSongsNumber(thisSearch.filteredSongs);
+      // } else if (
+      //   !thisSearch.input.value &&
+      //   thisSearch.categorySelector.value !=
+      //     thisSearch.categorySelector.children[0].value
+      // ) {
+      //   const filteredSongs = [];
+      //   for (let song of thisSearch.dataSongs) {
+      //     if (song.categories.includes(thisSearch.categorySelector.value)) {
+      //       filteredSongs.push(song);
+      //     }
+      //   }
+      //   thisSearch.generateMusicPlayer(filteredSongs);
+      //   thisSearch.displayMatchingSongsNumber(filteredSongs);
+      // } else if (
+      //   thisSearch.input.value &&
+      //   thisSearch.categorySelector.value !=
+      //     thisSearch.categorySelector.children[0].value
+      // ) {
+      //   thisSearch.filterSongsByInput();
 
-        const songsFilteredByCategory = [];
-        for (let song of thisSearch.filteredSongs) {
-          if (song.categories.includes(thisSearch.categorySelector.value)) {
-            songsFilteredByCategory.push(song);
-          }
-        }
-        thisSearch.displayMatchingSongsNumber(songsFilteredByCategory);
-        thisSearch.generateMusicPlayer(songsFilteredByCategory);
-      }
+      //   const songsFilteredByCategory = [];
+      //   for (let song of thisSearch.filteredSongs) {
+      //     if (song.categories.includes(thisSearch.categorySelector.value)) {
+      //       songsFilteredByCategory.push(song);
+      //     }
+      //   }
+      //   thisSearch.displayMatchingSongsNumber(songsFilteredByCategory);
+      //   thisSearch.generateMusicPlayer(songsFilteredByCategory);
+      // }
 
       thisSearch.initMusicPlayerWidget();
     });

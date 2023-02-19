@@ -15,7 +15,6 @@ const app = {
     thisApp.noResultAllert = document.querySelector(
       select.containerOf.noResultAlert
     );
-    console.log(thisApp.noResultAllert);
     thisApp.pages = document.querySelector(select.containerOf.pages).children;
     thisApp.navLinks = document.querySelectorAll(select.nav.links);
     thisApp.categoriesList = document.getElementById(

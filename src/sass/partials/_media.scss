@@ -123,6 +123,7 @@
       font-size: 2.5vw;
     }
   }
+
   .author-name {
     z-index: 1;
     bottom: -50px;
@@ -180,9 +181,11 @@
     #categories-list {
       display: block;
     }
+
     ul {
       margin: 0;
     }
+
     p,
     li {
       display: block;
