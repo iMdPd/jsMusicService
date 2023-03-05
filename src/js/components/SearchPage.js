@@ -75,14 +75,13 @@ export class SearchPage {
         { param: thisSearch.input.value.toLowerCase(), type: 'text' },
         { param: thisSearch.categorySelector.value, type: 'category' },
       ];
-      console.log('filters', filters);
 
       function filterSongsByInput(songs, filters) {
         function filterByText(param, songs) {
           return songs.filter(
-            (s) =>
-              s.title.toLowerCase().replaceAll(' ', '').includes(param) ||
-              s.author.toLowerCase().replaceAll(' ', '').includes(param)
+            ({ title, author }) =>
+              title.toLowerCase().replaceAll(' ', '').includes(param) ||
+              author.toLowerCase().replaceAll(' ', '').includes(param)
           );
         }
 
@@ -103,7 +102,6 @@ export class SearchPage {
       }
 
       const songs = thisSearch.dataSongs;
-      console.log('songs', songs);
 
       thisSearch.generateMusicPlayer(filterSongsByInput(songs, filters));
       thisSearch.displayMatchingSongsNumber(filterSongsByInput(songs, filters));
