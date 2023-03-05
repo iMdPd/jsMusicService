@@ -25,7 +25,7 @@
 If you want check jsMusicService, it is deployed on Replit. Just click link below :
 <br />
 
-https://js-musicService.imdpd.repl.co
+https://jsMusicService.imdpd.repl.co
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
